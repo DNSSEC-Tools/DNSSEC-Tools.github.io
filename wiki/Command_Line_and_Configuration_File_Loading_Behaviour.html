@@ -42,7 +42,7 @@ Some tools may provide a <a href="GUI.html">GUI</a> window for helping users run
 2. Be launched when the --gui flag is given
 3. Be launched when config file has the gui flag enabled and no options are given
 <ul>
-- MUST respect being launched as "APPLICATION --dtconf my.conf" as a valid starting
+<li>MUST respect being launched as "APPLICATION --dtconf my.conf" as a valid starting</li>
 </ul>
 4. Be launched when the DT_GUI environmental variable is configured to true and no options are given
 5. Use default values in the GUI based on:
@@ -50,11 +50,11 @@ Some tools may provide a <a href="GUI.html">GUI</a> window for helping users run
 1. Application default values
 2. Configuration file contents
 <ul>
--  MUST support APPLICATION --dtconf my.conf and still launch a GUI
+<li> MUST support APPLICATION --dtconf my.conf and still launch a GUI</li>
 </ul>
 3. Command Line Options given
 <ul>
--  (requires that "APPLICATION --gui --other-args..." be used)
+<li> (requires that "APPLICATION --gui --other-args..." be used)</li>
 
 </ul>
 </ol>
@@ -73,6 +73,6 @@ At this time, the DT_GUI environment variable doesn't work.
 Implementation.
 The DTGetOptions function will implement all of the above, including:
 <ul>
-- Searching arguments for the --dtconf flag and reading at least the "gui" option from the pointed file to determine if a full user GUI should be launched.
+<li>Searching arguments for the --dtconf flag and reading at least the "gui" option from the pointed file to determine if a full user GUI should be launched.</li>
 
 </doc>

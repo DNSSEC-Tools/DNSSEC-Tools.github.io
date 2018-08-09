@@ -15,12 +15,12 @@ The validator application can run series of tests to exercise the library code f
 <ul>
 Specification.
 Requirements.
-- Each test case should have a text description
-- Each test case should be a query for a single domain/class/type tuple
-- Each test case should have a specific set of expected validation results
-- Tests cases should be able to be grouped into a "suite" of tests
-- All tests for a suite must be specified sequentially
-- All tests not grouped into a suite will be collected in a "default" suite
+<li>Each test case should have a text description</li>
+<li>Each test case should be a query for a single domain/class/type tuple</li>
+<li>Each test case should have a specific set of expected validation results</li>
+<li>Tests cases should be able to be grouped into a "suite" of tests</li>
+<li>All tests for a suite must be specified sequentially</li>
+<li>All tests not grouped into a suite will be collected in a "default" suite</li>
 
 </ul>
 <h3>Storage structure</h3>
@@ -32,11 +32,11 @@ File format.
 The general format is:
 Of special note:
 <ul>
-- suite label must not contain whitespace, and is terminated with a colon (':')
-- all tests after a suite label belong to that label
-- test case decription must be enclosed in double quote if it contain spaces
-- a test case must be terminated by a semi-colon ';'
-- class, type and result code may be numerical or textual
+<li>suite label must not contain whitespace, and is terminated with a colon (':')</li>
+<li>all tests after a suite label belong to that label</li>
+<li>test case decription must be enclosed in double quote if it contain spaces</li>
+<li>a test case must be terminated by a semi-colon ';'</li>
+<li>class, type and result code may be numerical or textual</li>
 </ul>
 For example:
 

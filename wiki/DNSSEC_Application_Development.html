@@ -16,11 +16,11 @@ following are generally true for similar function calls in the
 standard library and in libval:
 
 <ul>
-- common API function calls have similar names except that libval calls have a val_ prefix.
-- usually two additional parameters are added:
+<li>common API function calls have similar names except that libval calls have a val_ prefix.</li>
+<li>usually two additional parameters are added:</li>
 <ul>
-- val_status_t parameter used to store success/failure of validation
-- val_context_t parameter used to store context for validation (allowed to be 'null' which uses a default context)
+<li>val_status_t parameter used to store success/failure of validation</li>
+<li>val_context_t parameter used to store context for validation (allowed to be 'null' which uses a default context)</li>
 
 </ul>
 </ul>
@@ -66,12 +66,12 @@ Users need to ensure that the libval_shim library is loaded prior to the target 
 Since libval_shim internally makes use of libval, the mechanism for configuring trust and policy settings for libval_shim is almost identical to that of libval. The only difference is that since the applications that make use of libval_shim are expected to be DNSSEC-unaware, there is no way for the application itself to specify a validation policy to use. libval provides two ways for libval_shim to select a specific validation policy for a given application (see the man page for dnsval.conf for additional details). If neither of these options are enabled, libval_shim uses the default validator context for its validation policy.
 
 <ul>
-- env-policy
+<li>env-policy</li>
 </ul>
 If the env-policy global option is not disabled, libval looks at the VAL_CONTEXT_LABEL environmental variable in order to determine the validator policy label.
 
 <ul>
-- app-policy
+<li>app-policy</li>
 </ul>
 If the app-policy global option is not disabled, libval automatically looks for a policy in dnsval.conf with a label value constructed from the name of the application. For example, dnsval.conf may be defined with validator policies for the foo label. The foo application, when run, will use the policy defined
 against the foo label during its validation operation.

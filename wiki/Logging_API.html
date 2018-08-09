@@ -7,17 +7,17 @@ title:  DNSSEC-Tools -- Logging API
 
 <ul>
 Logging Requirements from the DNSSEC-Tools.
-- allow multiple applications to use a similar output format
-- allow multiple applications to use similar command line options for selecting what to log
-- allow applications to prioritize a log level (eg, 1-9)
-- allow applications to "tag" log strings with an indication of the content
-- allow users to select what to view based on tags and priority
-- allow log messages to go to any or multiple of
+<li>allow multiple applications to use a similar output format</li>
+<li>allow multiple applications to use similar command line options for selecting what to log</li>
+<li>allow applications to prioritize a log level (eg, 1-9)</li>
+<li>allow applications to "tag" log strings with an indication of the content</li>
+<li>allow users to select what to view based on tags and priority</li>
+<li>allow log messages to go to any or multiple of</li>
 <ul>
-- stdout/stderr
-- a file
-- syslog
-- a callback?
+<li>stdout/stderr</li>
+<li>a file</li>
+<li>syslog</li>
+<li>a callback?</li>
 
 </ul>
 </ul>
@@ -30,8 +30,8 @@ The architecture below would offer (in both perl and C):
 1. A common API for processing command line logging requests
 2. An API for logging level/tags/strings/arguments from the application
 <ul>
-- Which would internally redistribute information
-- Would filter, per destination, based on level/tags
+<li>Which would internally redistribute information</li>
+<li>Would filter, per destination, based on level/tags</li>
 </ul>
 </ol>
 <a href="http://www.hardakers.net/temp/logging-API.png"></a>
@@ -45,15 +45,15 @@ The current perl and C-library based command line utilities use multiple forms o
 
 <ul>
 Current options.
-- validate, and libval, currently accept:
+<li>validate, and libval, currently accept:</li>
 <ul>
-- -o 7:stderr for selecting what level and where to log to
+<li>-o 7:stderr for selecting what level and where to log to</li>
 </ul>
-- rollerd accepts:
+<li>rollerd accepts:</li>
 <ul>
-- -loglevel <level>
-- -logfile <logfile>
-- -verbose
+<li>-loglevel <level></li>
+<li>-logfile <logfile></li>
+<li>-verbose</li>
 
 </ul>
 </ul>

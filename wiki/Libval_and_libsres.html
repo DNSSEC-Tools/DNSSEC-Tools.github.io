@@ -16,35 +16,35 @@ Features.
 Some of the high-level features of libval are given below:
 
 <ul>
-- It provides the application with a robust API for determining validation status and the reasons for validation failures.
+<li>It provides the application with a robust API for determining validation status and the reasons for validation failures.</li>
 
 </ul>
 <ul>
-- It provides flexibility and greater control over defining *application-specific* validation policies
+<li>It provides flexibility and greater control over defining *application-specific* validation policies</li>
 
 </ul>
 <ul>
-- The -threads version is thread-safe. The library can also be built on systems that do not support threads.
+<li>The -threads version is thread-safe. The library can also be built on systems that do not support threads.</li>
 
 </ul>
 <ul>
-- It has the ability to send out asynchronous queries, where the application can continue to do other tasks while the different lookups on-the-wire complete. In the libval implementation we support the async querying ability without having to spawn a new thread or a new process.
+<li>It has the ability to send out asynchronous queries, where the application can continue to do other tasks while the different lookups on-the-wire complete. In the libval implementation we support the async querying ability without having to spawn a new thread or a new process.</li>
 
 </ul>
 <ul>
-- It will work nicely if you provide it with a recursive name server to direct its queries to. If recursive name servers are not available or if the default name servers provided to libval are broken in some respect, libval will attempt an iterative lookup from root in order to find an answer that it can work with.
+<li>It will work nicely if you provide it with a recursive name server to direct its queries to. If recursive name servers are not available or if the default name servers provided to libval are broken in some respect, libval will attempt an iterative lookup from root in order to find an answer that it can work with.</li>
 
 </ul>
 <ul>
-- The library has been ported to a number of platforms including certain "mobile" device platforms such as Android, Maemo, Meego and Harmattan.
+<li>The library has been ported to a number of platforms including certain "mobile" device platforms such as Android, Maemo, Meego and Harmattan.</li>
 
 </ul>
 <ul>
-- There are probably more worked examples of applications that have been made DNSSEC-capable using libval than other libraries at present.
+<li>There are probably more worked examples of applications that have been made DNSSEC-capable using libval than other libraries at present.</li>
 
 </ul>
 <ul>
-- Contains initial support for DANE. Full DANE support should be available soon.
+<li>Contains initial support for DANE. Full DANE support should be available soon.</li>
 
 </ul>
 <h3>Example Policy Specifications</h3>
@@ -57,8 +57,8 @@ Comparison.
 The following other DNSSEC validation libraries exist besides libval:
 
 <ul>
-- <a href="http://www.nlnetlabs.nl/projects/ldns/">ldns</a>
-- <a href="https://www.knot-dns.cz/">Knot</a>
+<li><a href="http://www.nlnetlabs.nl/projects/ldns/">ldns</a></li>
+<li><a href="https://www.knot-dns.cz/">Knot</a></li>
 
 </ul>
 <h3>Comparison Chart</h3>
@@ -72,17 +72,17 @@ Comparison Chart.
 ! License 
 ! Requires
 <ul>
-- OpenSSL
-- OpenSSL
-- liburcu
-- OpenSSL
-- lex / bison
+<li>OpenSSL</li>
+<li>OpenSSL</li>
+<li>liburcu</li>
+<li>OpenSSL</li>
+<li>lex / bison</li>
 </ul>
 ! Optional
 <ul>
-- pthread
-- ???
-- ???
+<li>pthread</li>
+<li>???</li>
+<li>???</li>
 </ul>
 ! DNSSEC Support
 

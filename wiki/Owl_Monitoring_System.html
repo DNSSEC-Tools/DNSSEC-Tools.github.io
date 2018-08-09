@@ -21,23 +21,23 @@ The <a href="https://www.dnssec-tools.org/docs/owl-monitor/install-guide.html">O
 Quickstart Instructions.
 This set of instructions assume the following:
 <ul>
-- nagios is installed in /usr/local/nagios
-- nagiosgraph is installed in /usr/local/nagiosgraph.
-- The nagios user and group are defined as nagios:nagios
-- The owl-manager files are present in the /opt/src/manager directory
-- The owl-sensor files are present in the /opt/src/sensor directory
+<li>nagios is installed in /usr/local/nagios</li>
+<li>nagiosgraph is installed in /usr/local/nagiosgraph.</li>
+<li>The nagios user and group are defined as nagios:nagios</li>
+<li>The owl-manager files are present in the /opt/src/manager directory</li>
+<li>The owl-sensor files are present in the /opt/src/sensor directory</li>
 
 </ul>
 <h4>Step 0: Install pre-requisite packages</h4>
 
 <ul>
 Step 0: Install pre-requisite packages.
-- Perl packages:
+<li>Perl packages:</li>
 </ul>
  # wget http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.i686.rpm 
 
 <ul>
-- rrsync:
+<li>rrsync:</li>
 </ul>
  # wget http://ftp.samba.org/pub/unpacked/rsync/support/rrsync
 
@@ -65,13 +65,13 @@ Step 4: Install and customize the owl-dnswatch and owl-perfdata scripts.
  # cd /usr/local/nagios/libexec/
 
 <ul>
-- Modify /usr/local/nagios/libexec/owl-dnswatch as follows:
+<li>Modify /usr/local/nagios/libexec/owl-dnswatch as follows:</li>
 </ul>
 old:
 new:
 
 <ul>
-- Modify /usr/local/nagios/libexec/owl-perfdata as follows:
+<li>Modify /usr/local/nagios/libexec/owl-perfdata as follows:</li>
 </ul>
 old:
 new:
@@ -79,12 +79,12 @@ new:
 <h4>Step 5: Set owl parameters for rrd</h4>
 <ul>
 Step 5: Set owl parameters for rrd.
-- Set the following options in /usr/local/nagiosgraph/etc/nagiosgraph.conf
+<li>Set the following options in /usr/local/nagiosgraph/etc/nagiosgraph.conf</li>
 
 </ul>
 
 <ul>
-- Add the following to the end of /usr/local/nagiosgraph/etc/map
+<li>Add the following to the end of /usr/local/nagiosgraph/etc/map</li>
 </ul>
  # Service type: Owl Monitor - DNS response data from owl-dnswatch
 
@@ -92,18 +92,18 @@ Step 5: Set owl parameters for rrd.
 
 <ul>
 Step 6: Add nagios templates and objects for use by Owl.
-- Copy owl templates
+<li>Copy owl templates</li>
 
 </ul>
 
 <ul>
-- Add templates to the nagios configuration
+<li>Add templates to the nagios configuration</li>
 
 </ul>
 In /usr/local/nagios/etc/nagios.cfg add the following lines:
 
 <ul>
-- Process owl plugins for service commands
+<li>Process owl plugins for service commands</li>
 
 </ul>
 In /usr/local/nagios/etc/nagios.cfg set service_perfdata_command as follows:
@@ -133,7 +133,7 @@ Step 2: Copy owl sensor data to the user account on the sensor machine.
 
 <ul>
 Step 3: Create an owl sensor config file for sensor-1 on the sensor machine.
-- Modify ~/conf/owl.conf as follows
+<li>Modify ~/conf/owl.conf as follows</li>
 
 </ul>
 
@@ -143,23 +143,23 @@ Setp 4: Initialize the sensor on the manager machine.
 Note: This is on the manager machine:
 
 <ul>
-- Create the sensor directories on the manager machine
+<li>Create the sensor directories on the manager machine</li>
 
 </ul>
 
 <ul>
-- Create a new sensor config file
+<li>Create a new sensor config file</li>
 
 </ul>
 
 <ul>
-- Create the nagios objects for the sensor
+<li>Create the nagios objects for the sensor</li>
 
 </ul>
 In /usr/local/nagios/etc/nagios.cfg add the following line just before the config line for owl-hostgroups.cfg:
 
 <ul>
-- Add the sensor to the hostgroup
+<li>Add the sensor to the hostgroup</li>
 
 </ul>
 In /usr/local/nagios/etc/objects/owl-hostgroups.cfg add the following line:

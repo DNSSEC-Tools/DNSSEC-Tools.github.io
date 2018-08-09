@@ -9,40 +9,40 @@ title:  DNSSEC-Tools -- Validator discussion items
 Validator discussion notes: 1/3/2007.
 1. Resolver algorithm, robustness
 <ul>
-- we only look at other NSs if the ones we ask don't respond - we don't ask the other NSs as long as we see some response from the server, even if this was an error condition. Assumption is that server is authoritative, so we must believe it.
-- hardaker: consider the case where one name server is broken code and the rest are good code
-- Next step: Take discussion to namedroppers, add configuration option that allows these checks to be conditionally performed
+<li>we only look at other NSs if the ones we ask don't respond - we don't ask the other NSs as long as we see some response from the server, even if this was an error condition. Assumption is that server is authoritative, so we must believe it.</li>
+<li>hardaker: consider the case where one name server is broken code and the rest are good code</li>
+<li>Next step: Take discussion to namedroppers, add configuration option that allows these checks to be conditionally performed</li>
 
 </ul>
 </ol>
 <ol>
 1. detection of flooding attacks
 <ul>
-- Summary: We are currently not detecting flood attacks; i.e. we don't wait for the correct response to appear Not a simple case to implement, because validation requires a chain of responses -- we won't know which answer is being replayed. We then have a combinatorial problem of how do we select from the responses the correct ones for the chain of trust.
-- Next Step: Sam to give examples of where breakage appears
-- rstory: this would require cooperation from the resolver... with the current tight coupling between libsres and libval, something could be done... but after a decoupling, probably not..
+<li>Summary: We are currently not detecting flood attacks; i.e. we don't wait for the correct response to appear Not a simple case to implement, because validation requires a chain of responses -- we won't know which answer is being replayed. We then have a combinatorial problem of how do we select from the responses the correct ones for the chain of trust.</li>
+<li>Next Step: Sam to give examples of where breakage appears</li>
+<li>rstory: this would require cooperation from the resolver... with the current tight coupling between libsres and libval, something could be done... but after a decoupling, probably not..</li>
 
 </ul>
 </ol>
 <ol>
 1. definition of trusted
 <ul>
-- val_istrusted()
+<li>val_istrusted()</li>
 <ul>
--  trust point
--  provably unsecure
--  validation ignored
--  trusted zone
--  local answer
+<li> trust point</li>
+<li> provably unsecure</li>
+<li> validation ignored</li>
+<li> trusted zone</li>
+<li> local answer</li>
 </ul>
-- val_isvalidated()
+<li>val_isvalidated()</li>
 <ul>
--  trust point is reached
+<li> trust point is reached</li>
 </ul>
-- rstory: So, what do we call it when cryptography was used to determine that the zone administrator configured an insecure delegation (or nsec3 optout)?
-- Next Step: implementation of policy hook that allows you to customize is_trusted() (and is_validated?)
+<li>rstory: So, what do we call it when cryptography was used to determine that the zone administrator configured an insecure delegation (or nsec3 optout)?</li>
+<li>Next Step: implementation of policy hook that allows you to customize is_trusted() (and is_validated?)</li>
 <ul>
--  suresh: do we also need a function similar to val_istrusted() and val_isvalidated() to capture this conditon?
+<li> suresh: do we also need a function similar to val_istrusted() and val_isvalidated() to capture this conditon?</li>
 
 </ul>
 </ul>
@@ -53,47 +53,47 @@ Validator discussion notes: 1/3/2007.
 <ul>
 Discussion notes for Thr 1/4/2007.
 Locking and pthreads.
-- Should we create two versions, one with locking and one without?
+<li>Should we create two versions, one with locking and one without?</li>
 <ul>
--  Pros
+<li> Pros</li>
 <ul>
--   one less pre-req (pthreads) for environments that don't need it
+<li>  one less pre-req (pthreads) for environments that don't need it</li>
 </ul>
--  Cons
+<li> Cons</li>
 <ul>
--   more complex build process
+<li>  more complex build process</li>
 </ul>
 </ul>
 </ul>
 </ol>
 Consensus points:
 <ul>
-- multithread support is needed
+<li>multithread support is needed</li>
 <ul>
-- but should be optional
+<li>but should be optional</li>
 </ul>
-- context caching needed between threads?
+<li>context caching needed between threads?</li>
 <ul>
-- needed for simplicity api
+<li>needed for simplicity api</li>
 </ul>
-- should we enable configure to support mt and non-mt both?
+<li>should we enable configure to support mt and non-mt both?</li>
 <ul>
-- no. but naming the library libval-threads when locking enabled
+<li>no. but naming the library libval-threads when locking enabled</li>
 </ul>
-- should we distribute RPMs (etc) to build and install threads and non threads?
+<li>should we distribute RPMs (etc) to build and install threads and non threads?</li>
 <ul>
-- yes, but not high priority
+<li>yes, but not high priority</li>
 </ul>
 </ul>
 Consensus on steps:
 <ol>
 1. create configure patches to enable/disable threads
 <ul>
-- default to enable if possible
+<li>default to enable if possible</li>
 </ul>
 2. clean up of context caches
 <ul>
-- multiple threads can not currently share a context, but should be able to
+<li>multiple threads can not currently share a context, but should be able to</li>
 </ul>
 3. rename library to include -threads
 4. eventually distribute both types
@@ -103,15 +103,15 @@ Consensus on steps:
 Application behavior on validation failure.
 Summary from list: marz: I am confused by our error philosophy... it seems return code/h_error/error/val_status can be all sorts of hings...sometimes related...sometimes one or more are valid...I wonder if there is a simpler approach
 <ul>
-- Wes: two different decision points:
+<li>Wes: two different decision points:</li>
 <ul>
-- did the function fail? (memory, some other issue)
-- did the protocol fail? (host not found, sig failed)
+<li>did the function fail? (memory, some other issue)</li>
+<li>did the protocol fail? (host not found, sig failed)</li>
 </ul>
-- Marz: don't like mapping of error codes onto other errno numbers, etc
-- Suresh will think on it
+<li>Marz: don't like mapping of error codes onto other errno numbers, etc</li>
+<li>Suresh will think on it</li>
 <ul>
-- with input from Joe
+<li>with input from Joe</li>
 
 </ul>
 </ul>
@@ -121,7 +121,7 @@ Summary from list: marz: I am confused by our error philosophy... it seems retur
 <ul>
 Tabled until 1/11.
 Use of LD_PRELOAD.
-- related to previous item; if we silently replace exsiting functions, how do we map the plethora (thank you <a href="http://www.imdb.com/title/tt0092086/quotes">Three amigos</a>) of new error codes to original functions more limited set?
+<li>related to previous item; if we silently replace exsiting functions, how do we map the plethora (thank you <a href="http://www.imdb.com/title/tt0092086/quotes">Three amigos</a>) of new error codes to original functions more limited set?</li>
 
 </ul>
 </ol>
@@ -129,6 +129,6 @@ Use of LD_PRELOAD.
 <ol>
 <ul>
 Error precedence.
-- Summary : Brought up by sam during 01/03 meeting. Problem description is still unclear.
+<li>Summary : Brought up by sam during 01/03 meeting. Problem description is still unclear.</li>
 
 </doc>

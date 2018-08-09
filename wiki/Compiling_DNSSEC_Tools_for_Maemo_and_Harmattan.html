@@ -15,8 +15,8 @@ default one in /etc points to 127.0.0.1, as the device runs
 dnsmasq. But the real dhcp assigned resolvers are stored in:
 
 <ul>
-- /var/run/resolv.conf.wlan0: when connected to the wireless network
-- /var/run/resolv.conf.gprs: when connected to a cellular network
+<li>/var/run/resolv.conf.wlan0: when connected to the wireless network</li>
+<li>/var/run/resolv.conf.gprs: when connected to a cellular network</li>
 
 </ul>
 Because of this, we have to patch libval to try one and then fallback

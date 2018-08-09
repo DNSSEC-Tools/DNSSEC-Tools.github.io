@@ -11,11 +11,11 @@ Note: This feature is currently only available on the CentOS platform. The dnsse
 DNSSEC status displayed in the zone listing..
 The DNSSEC status can be one of the following:
 <ul>
-- Signed: If the zone is signed and managed by DNSSEC-Tools
-- Unsigned: If the zone is unsigned or not managed by DNSSEC-Tools
-- In ZSK Roll: If the zone is in the midst of a ZSK rollover operation
-- In KSK Roll: If the zone is in the midst of a KSK rollover operation
-- Waiting for DS: Waiting for the administrator to notify the "rollerd" daemon that the DS record has been published in the parent and that sufficient time has elapsed since the publication of the new DS record.
+<li>Signed: If the zone is signed and managed by DNSSEC-Tools</li>
+<li>Unsigned: If the zone is unsigned or not managed by DNSSEC-Tools</li>
+<li>In ZSK Roll: If the zone is in the midst of a ZSK rollover operation</li>
+<li>In KSK Roll: If the zone is in the midst of a KSK rollover operation</li>
+<li>Waiting for DS: Waiting for the administrator to notify the "rollerd" daemon that the DS record has been published in the parent and that sufficient time has elapsed since the publication of the new DS record.</li>
 
 </ul>
 
@@ -23,14 +23,14 @@ The DNSSEC status can be one of the following:
 
 <ul>
 Manage Rollover operations using rollerd.
-- The output from the dnssec-tools 'lsdnssec' command is displayed in order to provide information on the current phase of ZSK and KSK rollover.
-- A zone may be only in one rollover operation at any given time, but zones may be safely resigned at any time
-- DNSSEC status and any DNSSEC-Tools meta-data for a zone may be disabled at any time. However it is the responsibility of the zone administrator to manually remove any DS records from the parent zone prior to disabling DNSSEC for a zone.
-- A zone that is in a KSK rollover operation will eventually need to have a DS record pointing to its new KSK. 'rollerd' will need to be notified when the parent zone has had the new DS record published for a sufficient length of time.
+<li>The output from the dnssec-tools 'lsdnssec' command is displayed in order to provide information on the current phase of ZSK and KSK rollover.</li>
+<li>A zone may be only in one rollover operation at any given time, but zones may be safely resigned at any time</li>
+<li>DNSSEC status and any DNSSEC-Tools meta-data for a zone may be disabled at any time. However it is the responsibility of the zone administrator to manually remove any DS records from the parent zone prior to disabling DNSSEC for a zone.</li>
+<li>A zone that is in a KSK rollover operation will eventually need to have a DS record pointing to its new KSK. 'rollerd' will need to be notified when the parent zone has had the new DS record published for a sufficient length of time.</li>
 
 </ul>
 <ul>
-- The UI makes the KSK data readily information, and provides a way for the operator to notify rollerd of the DS publication event and 'Resume KSK Roll'
+<li>The UI makes the KSK data readily information, and provides a way for the operator to notify rollerd of the DS publication event and 'Resume KSK Roll'</li>
 
 </ul>
 <h2>Migration to DNSSEC-Tools.</h2>
@@ -44,15 +44,15 @@ Configuring Global DNSSEC-Tools related options..
 The parameters that can be configured are
 
 <ul>
-- Administrator email address: Address to which notification messages from daemon programs are to be sent
-- key algorithm: algorithm used to sign the zone
-- KSK length: key length for the KSK
-- ZSK length: key length for the ZSK
-- Use NSEC3: whether zones should be signed using NSEC or NSEC3
-- Signature validity period: The end time for new signatures in (+) seconds
-- KSK Rollover interval: The interval between two scheduled KSK rollover operations
-- ZSK Rollover interval: The interval between two scheduled ZSK rollover operations
-- Period between re-signs: How often to resign zones.
+<li>Administrator email address: Address to which notification messages from daemon programs are to be sent</li>
+<li>key algorithm: algorithm used to sign the zone</li>
+<li>KSK length: key length for the KSK</li>
+<li>ZSK length: key length for the ZSK</li>
+<li>Use NSEC3: whether zones should be signed using NSEC or NSEC3</li>
+<li>Signature validity period: The end time for new signatures in (+) seconds</li>
+<li>KSK Rollover interval: The interval between two scheduled KSK rollover operations</li>
+<li>ZSK Rollover interval: The interval between two scheduled ZSK rollover operations</li>
+<li>Period between re-signs: How often to resign zones.</li>
 
 </ul>
 

@@ -16,9 +16,9 @@ exceptions.
 Some spec files purely use macros for configuring the app. Others also use macros during the build process, which can cause issues.
 
 <ul>
-- _includedir: this can affect the search path during builds
-- _tmppath: used to create temp files
-- _lib: this macro is special. It is lib for 32 bit machines, and lib64 for 64 bit machines. It is sometimes used in
+<li>_includedir: this can affect the search path during builds</li>
+<li>_tmppath: used to create temp files</li>
+<li>_lib: this macro is special. It is lib for 32 bit machines, and lib64 for 64 bit machines. It is sometimes used in</li>
 </ul>
 paths, such as /%{_lib}. Such instances will need to have the prefix added. e.g.
 

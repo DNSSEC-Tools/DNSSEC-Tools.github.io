@@ -12,8 +12,8 @@ Requirements.
 Contexts.
 1. Should different applications be able to share contexts?
 <ul>
-- If yes, then we need to limit damage that can be caused to context by a misbehaving app.
-- If no, then the config file will be read each time a context is created. Also, the validator cache will not be shared between contexts: each app will have its own validator cache.
+<li>If yes, then we need to limit damage that can be caused to context by a misbehaving app.</li>
+<li>If no, then the config file will be read each time a context is created. Also, the validator cache will not be shared between contexts: each app will have its own validator cache.</li>
 
 </ul>
 </ol>
@@ -28,11 +28,11 @@ Validator (Assertion) caches.
 5. Must be able to re-use validation status for synthesized positive and negative answers
 6. Add bad cache support
 <ul>
-- answer from bad cache only when query failed for a certain number of times.
-- bypass the cache for getting fresh values of rrsets
-- TTL must be assigned to some small value (since this cannot be trusted)
-- answers from this cache must not be returned if the DONT_VALIDATE flag was set.
-- add support for synthesizing negative responses (ANC)
+<li>answer from bad cache only when query failed for a certain number of times.</li>
+<li>bypass the cache for getting fresh values of rrsets</li>
+<li>TTL must be assigned to some small value (since this cannot be trusted)</li>
+<li>answers from this cache must not be returned if the DONT_VALIDATE flag was set.</li>
+<li>add support for synthesizing negative responses (ANC)</li>
 
 </ul>
 </ol>
@@ -46,10 +46,10 @@ Resolver caches.
 4. Add API to clear cache
 5. Add negative answer cache support.
 <ul>
-- indexed by name and class (since type may be missing)
-- organized by zone name, so that we get the proof from the correct zone
-- must include proofs of wildcard existence and non-existence
-- option to sythesize positive/negative answers
+<li>indexed by name and class (since type may be missing)</li>
+<li>organized by zone name, so that we get the proof from the correct zone</li>
+<li>must include proofs of wildcard existence and non-existence</li>
+<li>option to sythesize positive/negative answers</li>
 
 </ul>
 </ol>

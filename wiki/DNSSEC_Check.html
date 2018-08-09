@@ -24,9 +24,9 @@ Submitting Your Results.
 The DNSSEC-Tools project is also collecting data about which resolvers in the world support various DNSSEC-capable tests. To help us with this collection effort, we encourage you to click the Submit Results button to send the data to the DNSSEC-Tools server. The data collected constists of:
 
 <ul>
-- HASHed versions of the IP addresses of the resolvers tested
-- HASHed versions of the IP address submitting the data
-- Results of each of the test per HASH resolver address
+<li>HASHed versions of the IP addresses of the resolvers tested</li>
+<li>HASHed versions of the IP address submitting the data</li>
+<li>Results of each of the test per HASH resolver address</li>
 
 </ul>
 Once you click the Submit Results button you'll also receive a report of the current dataset, which will contain information you might find useful.
@@ -39,11 +39,11 @@ Grading Your Resolvers.
 DNSSEC-Check assigns a letter grade to each resolver tested. This grade is determined as follows:
 
 <ul>
-- A: The resolver is fully DNSSEC compliant and is validating answers and is not returning known invalid data
-- B: The resolver is fully DNSSEC compliant but is not validating answers; It can be used with DNSSEC as a caching resolver though.
-- C: The resolver answers queries but can not be used to query for specific DNSSEC record types (eg, NSEC3 is a common failure)
-- D: The resolver only supports querying for the most basic record types and doesn't do EDNS0
-- F: The resolver isn't answering queries at all.
+<li>A: The resolver is fully DNSSEC compliant and is validating answers and is not returning known invalid data</li>
+<li>B: The resolver is fully DNSSEC compliant but is not validating answers; It can be used with DNSSEC as a caching resolver though.</li>
+<li>C: The resolver answers queries but can not be used to query for specific DNSSEC record types (eg, NSEC3 is a common failure)</li>
+<li>D: The resolver only supports querying for the most basic record types and doesn't do EDNS0</li>
+<li>F: The resolver isn't answering queries at all.</li>
 
 </ul>
 <h2>Tests Conducted</h2>
@@ -52,17 +52,17 @@ Tests Conducted.
 Below is a brief description of the tests conducted by the DNSSEC-Check utility:
 
 <ul>
-- DNS: Can we at least resolve a simple A record? If this is impossible, it's likely the resolver or the connection to it is not operational at all.
-- TCP: Can we perform a simple query over TCP, which is needed for larger DNSSEC queries (such as querying for large DNSKEYs)?
-- DO: Does the resolver properly support the DO bit? This test only checks that it is set in the response as well. "(Note that many resolvers copy the unknown bits into the response and don't actually support it. The next test will catch the failures of those resolvers.)
-- RRSIG: Are RRSIGs actually returned for a zone that is known to be signed when the DO bit is set?
-- EDNS0: Do we get a reasonable EDNS0 size from the resolver? (the actual value returned is in the help text)
-- NSEC: Does the resolver properly return an NSEC record for a non-existent name in a zone that is known to be signed with NSEC support?
-- NSEC: Does the resolver properly return an NSEC3 record for a non-existent name in a zone that is known to be signed with NSEC3 support?
-- DNSKEY: Can we query the resolver for DNSKEYs and a response with DNSKEYs in it?
-- DS: Can we query the resolver for DS records and get a response with DS records in it?
-- AD: Does the resolver perform DNSSEC validation itself?
-- DNAME: Does the resolver appropriately handle DNAME records with DNSSEC?
+<li>DNS: Can we at least resolve a simple A record? If this is impossible, it's likely the resolver or the connection to it is not operational at all.</li>
+<li>TCP: Can we perform a simple query over TCP, which is needed for larger DNSSEC queries (such as querying for large DNSKEYs)?</li>
+<li>DO: Does the resolver properly support the DO bit? This test only checks that it is set in the response as well. "(Note that many resolvers copy the unknown bits into the response and don't actually support it. The next test will catch the failures of those resolvers.)</li>
+<li>RRSIG: Are RRSIGs actually returned for a zone that is known to be signed when the DO bit is set?</li>
+<li>EDNS0: Do we get a reasonable EDNS0 size from the resolver? (the actual value returned is in the help text)</li>
+<li>NSEC: Does the resolver properly return an NSEC record for a non-existent name in a zone that is known to be signed with NSEC support?</li>
+<li>NSEC: Does the resolver properly return an NSEC3 record for a non-existent name in a zone that is known to be signed with NSEC3 support?</li>
+<li>DNSKEY: Can we query the resolver for DNSKEYs and a response with DNSKEYs in it?</li>
+<li>DS: Can we query the resolver for DS records and get a response with DS records in it?</li>
+<li>AD: Does the resolver perform DNSSEC validation itself?</li>
+<li>DNAME: Does the resolver appropriately handle DNAME records with DNSSEC?</li>
 
 </ul>
 <h3>Defining a comprehensive test list</h3>

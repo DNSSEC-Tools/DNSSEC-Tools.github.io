@@ -17,8 +17,8 @@ The Owl Manager has been installed on piper.netsec.tislabs.com and is managing a
 
 On piper, the Owl functionality has been split between two users:
 <ul>
-- owl-sensor: The Owl sensors use this user to transfer files to the manager.
-- owl-manager: The Owl manager software and Nagios run with this user.
+<li>owl-sensor: The Owl sensors use this user to transfer files to the manager.</li>
+<li>owl-manager: The Owl manager software and Nagios run with this user.</li>
 
 </ul>
 Everything that makes up the Owl environment -- data files, Nagios environment, etc. -- is in /owl. This is actually a symlink to /uem/owl.
@@ -37,23 +37,23 @@ Third-Party Software.
 The following third-party software packages are used by the Owl manager:
 
 <ul>
-- Nagios is a general-purpose network monitoring tool. Nagios runs on a monitoring host and collects data from remote hosts (or even its local self) to be displayed. Nagios is essentially an event dispatcher and display manager. It schedules events to collect monitoring data, and then it displays those data. Using other utilities, Nagios also has the facility to generate time-based graphs from the data it stores.
+<li>Nagios is a general-purpose network monitoring tool. Nagios runs on a monitoring host and collects data from remote hosts (or even its local self) to be displayed. Nagios is essentially an event dispatcher and display manager. It schedules events to collect monitoring data, and then it displays those data. Using other utilities, Nagios also has the facility to generate time-based graphs from the data it stores.</li>
 
 </ul>
 <ul>
-- nagiosgraph stores Owl sensor data in round-robin databases. It uses rrdtool to perform the actual database manipulation.
+<li>nagiosgraph stores Owl sensor data in round-robin databases. It uses rrdtool to perform the actual database manipulation.</li>
 
 </ul>
 <ul>
-- rrdtool manages round-robin databases, especially time-series data. This is used to store Owl sensor data for display in graphs.
+<li>rrdtool manages round-robin databases, especially time-series data. This is used to store Owl sensor data for display in graphs.</li>
 
 </ul>
 <ul>
-- drraw is a front-end for rrdtool. It is used by Owl's Nagios environment to build and display graphs of the Owl sensor data.
+<li>drraw is a front-end for rrdtool. It is used by Owl's Nagios environment to build and display graphs of the Owl sensor data.</li>
 
 </ul>
 <ul>
-- rrsync puts sensor data into a particular sensor's data directory. It restricts rsync to the sensor's data directory, and its use is set up on a per-sensor basis in ~owl-sensor/.ssh/authorized_keys.
+<li>rrsync puts sensor data into a particular sensor's data directory. It restricts rsync to the sensor's data directory, and its use is set up on a per-sensor basis in ~owl-sensor/.ssh/authorized_keys.</li>
 
 </ul>
 In addition, both the Owl manager and the Owl sensor use several third-party Perl modules.
