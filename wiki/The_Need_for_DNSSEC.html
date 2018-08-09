@@ -1,0 +1,19 @@
+---
+layout: default
+title:  DNSSEC-Tools -- The Need for DNSSEC
+---
+<h1>The Need for DNSSEC</h1>
+The Domain Name System (DNS) translates names to some information about that name, typically an IP address. It is one of the core technology that enables the Internet to be as useful as it currently is. Most users trust the Internet’s system of domain names and expect to be directed reliably to the website they’ve entered in a browser. Unfortunately, that’s not always the case. Attackers can disrupt the DNS by forging network packets or gaining illicit access to servers on the network to corrupt or destroy information. The ability to redirect users to other domains leaves openings for fraud in electronic commerce and the risks of various attacks on the Internet Infrastructure. DNS security (DNSSEC) works by introducing digital signatures throughout the DNS infrastructure. It establishes that the binding between a domain name and its resource records, including its IP addresses, has not been compromised. It can be used to trace the addresses used for web and email servers back to the bona fide owner of the domain. It can also be used to provide authoritative evidence that a binding is bogus or that a specific domain name or resource type does not exist.
+
+<h2>The Need For Validation</h2>
+
+The Need For Validation.
+DNSSEC validation proves the origin authenticity of the DNS data: that is, it proves that the DNS data originated from an authorized entity and wasn't modified in transit. It is the one true defense against cache poisoning attacks on the recursive name server, and since it provides end-to-end DNS data integrity, it also protects the user against compromised secondary name servers that may be managed by different organizations half way across the world. DNS threats are invisible to the end user, therefore validation must always be enabled to protect the user against spoofed responses that the user does not necessarily see. Ubiquitous DNSSEC validation also enables the creation of a number of new applications that can rely on a secure DNS infrastructure as its base.
+<h2>Additional Information</h2>
+
+<ul>
+Additional Information.
+- <a href="https://www.dnssec-deployment.org/index.php/2012/02/are-you-secure/">The need for validation within applications</a>
+- <a href="https://www.internetsociety.org/deploy360/resources/dane/">DNS-Based Authentication of Named Entities (DANE)</a>
+
+</doc>

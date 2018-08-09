@@ -1,0 +1,86 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Zabbix Plugins
+---
+<h1>Zabbix Plugins</h1>
+<h2>About</h2>
+
+About.
+Zabbix is a general-purpose, open source monitoring tool for networks and computers. It monitors the status of both hardware and software components, depending on each installation's configuration. It has capabilities for reporting the current status of components and longer term status (via graphs.) It is very flexible and can be configured to only monitor those services and hardware components needed by the local installation.
+
+The DNSSEC-Tools monitoring enhancements for Zabbix are for those who want to monitor:
+
+<ul>
+- local DNSSEC activity
+<ul>
+- validity of zonefiles
+- zones' rollover status
+</ul>
+- UEM activity
+<ul>
+- DNS response times
+
+</ul>
+</ul>
+For the DNSSEC-Tools project, plugins have been written for monitoring DNSSEC and UEM services. The plugins were written for Zabbix version 1.8.8. These plugins are referenced by Zabbix through a UserParameter entry in the zabbix_agentd.conf file. A set of example entries are included in the DNSSEC-Tools distribution and they must be modified for site-specific paths and zones. The keys in the UserParameter entries must be assigned to Zabbix items, and the items must be assigned to Zabbix hosts. They can then be further assigned to graphs and screens, as any other Zabbix item. These plugins are described below.
+
+<h2>Monitoring DNSSEC Zone Rollover</h2>
+
+Monitoring DNSSEC Zone Rollover.
+There are two plugins available for monitoring DNSSEC zone rollover. The first, rollstate, monitors zones managed by rollerd'. The second, zonestate, monitors the validity of DNS zonefiles.
+
+When using these plugins with Zabbix, you must be aware of the frequency of zone rollover actions and the frequency of Zabbix item checks. It is almost certain that there will be some amount of latency between actual zone rollover status and the rollover status displayed by Zabbix. This is the nature of the system and it should be expected. This should only be a problem if your zones are fast-rolling zones. If a zone has a TTL of just a few minutes, then the Zabbix display may lag behind reality.
+<h3>rollstate Plugin</h3>
+
+rollstate Plugin.
+The DNSSEC-Tools rollstate plugin provides monitoring information about a set of zones being managed by rollerd. It returns either a string or a number indicating the rollover state for a specified zone.
+
+The rollstate documentation (available by executing "perldoc rollstate") will provide more information about the use of rollstate. In particular, rollstate must be modified to use the proper rollrec files. This current prototype has a hard-coded path to the rollrec files.
+
+rollstate provide two types of output. With the -numeric option, it will give numeric responses, such as "3" or "-1". ZSK phases are positive numbers; KSK phases are negative numbers. The -numeric option allows rollover phases to be graphed and the negative number for KSK phases gives them a distinctive difference on the graph.
+
+This is a Zabbix display of rollstate monitoring five zones. The graphed numeric responses for each are shown, all consolidated on a single graph.
+
+This is a Zabbix display of rollstate monitoring two zones. The graphed numeric responses for each are shown, each on its own graph.
+
+Without the -numeric option, rollstate will print a text response, such as "ZSK phase 3" or "KSK phase 1".
+
+This is a Zabbix display of rollstate monitoring five zones. The numeric and text responses for each are shown.
+
+<h3>zonestate Plugin</h3>
+
+zonestate Plugin.
+The DNSSEC-Tools zonestate plugin monitors the validity of DNS zonefiles being managed by rollerd. It executes the BIND named-checkzone command on a zonefile and gives a message indicating whether the zonefile is valid or has errors. It returns either a string or a number indicating the rollover state for a specified zone.
+
+The zonestate documentation (available by executing "perldoc zonestate") will provide more information about the use of zonestate. In particular, zonestate must be modified to use the proper rollrec files. This current prototype has a hard-coded path to the rollrec files.
+
+zonestate provide two types of output. With the -numeric option, the return code from named-checkzone will be printed. This option allows zone file validity to be graphed. Without the -numeric option, zonestate will print whatever output was given by named-checkzone, if -verbose was given; otherwise, the string "<zone> has problems" will be printed.
+
+This is a Zabbix display of zonestate monitoring six zones. fail.com is an intentionally bad entry, in order to show a failure response from zonestate. The other five zonefiles are all valid.
+
+<h2>UEM Monitoring via Zabbix</h2>
+
+UEM Monitoring via Zabbix.
+The DNS User Experience Monitoring (UEM) system collects and monitors DNS performance information from a set of sensor nodes strategically distributed throughout the network. The primary design goal is to provide a central management entity with information, both near-time and historical, on DNS service health (connectivity, availability, response-time, and errors) as experienced by clients of the DNS. The DNS UEM system is intended to help provide enhanced situational awareness of DNS, as a service, in order to enable more rapid reaction to current problems and to enable proactive steps to preempt future ones. 
+
+The uemstats plugin is available for monitoring UEM's DNS response data, and it is described below.
+
+<h3>uemstats Plugin</h3>
+
+uemstats Plugin.
+The DNSSEC-Tools uemstats plugin provides monitoring information on the most recent response time recorded for a given grouping of UEM sensor, nameserver, and target host. (The sensor requests DNS data for a target host from a nameserver.)
+
+The uemstats documentation (available by executing "perldoc uemstats") will provide more information about the use of this plugin. In particular, uemstats must be modified to use the proper sensors, nameservers, and target hosts for the UEM installation.
+
+uemstats prints the most recent response time for a given DNS request. If the sensor, nameserver, or target host are not recognized, a negative number will be printed.
+This is a Zabbix display of uemstats numeric monitoring data for two sensor/nameserver/target tuples. The first is the graphed response for data from the UEM-East sensor, the A root server, and three target hosts (the root, NIC.MIL, and TISLABS.COM.) The second is the graphed response for data from the UEM-East sensor, the B root server, and three target hosts (the root, NIC.MIL, and TISLABS.COM.)
+
+This is a Zabbix display of uemstats graphed monitoring data for two sensors for most of the nameservers. The are data from the UEM-East and UEM-West sensors, the A root server through the G root server, and three target hosts (the root, NIC.MIL, and TISLABS.COM.)
+
+<h3>Combined Monitoring of DNSSEC Zone and UEM Monitoring</h3>
+
+Combined Monitoring of DNSSEC Zone and UEM Monitoring.
+Zabbix allows consolidation of various data sources. This display shows tabular response for DNSSEC Rollover plugins, both numeric and text output, and some of the data collected by the UEM East sensor.
+
+
+</doc>

@@ -1,0 +1,143 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Nagios Plugin and Modifications
+---
+<h1>Nagios Plugin and Modifications</h1>
+Page Under Development
+
+<h2>About</h2>
+
+About.
+Nagios is a general-purpose network monitoring tool. Nagios runs on a monitoring host and collects data from remote hosts (or even its local self) to be displayed. Nagios is essentially an event dispatcher and display manager. It schedules events to collect monitoring data, and then it displays those data. Using other utilities, Nagios also has the facility to generate time-based graphs from the data it stores.
+
+The DNSSEC-Tools monitoring enhancements for Nagios are for those who want to monitor:
+<ul>
+- local DNSSEC activity
+<ul>
+- validity of zonefiles
+- zones' rollover status
+</ul>
+- UEM activity
+<ul>
+- DNS response times
+- DNS anycast response times
+- UEM and root nameserver health
+
+</ul>
+</ul>
+Several sets of data objects define what is monitored and how the monitoring occurs. A service object pairs a host object and a command object. A command object is a command to be executed. A host object is usually a host name or IP address. A service object indicates that a particular command will be executed on behalf of a particular host.
+
+For DNSSEC-Tools, host objects are not actually hosts. They may be zone names, names of zone file, sensor names paired with the type of data being monitored. As the UEM and DNSSEC-Tools facilities for Nagios were being developed, it became clear that using something other than a strict host definition made sense.
+
+These modifications have been made to Nagios version 3.2.3. 
+
+The normal Nagios sidebar has been cut off the Nagios displays provided here. This was done for the sake of brevity.
+
+<h2>Monitoring DNSSEC</h2>
+
+Monitoring DNSSEC.
+There are two plugins available for monitoring DNSSEC. dt_donuts displays the results of the DNSSEC-Tools donuts command, which analyzes DNS zone files for problems. dt_zonestat monitors rollover of DNSSEC keys, as managed by the DNSSEC-Tools rollerd daemon. There were modifications to several Nagios files and a utility was written to help build the requisite Nagios object files.
+
+When using these plugins with Nagios, you must be aware of the frequency of zone rollover actions and the frequency of Nagios item checks. It is almost certain that there will be some amount of latency between actual zone rollover status and the rollover status displayed by Nagios. This is the nature of the system and it should be expected. This should only be a problem if your zones are fast-rolling zones. If a zone has a TTL of just a few minutes, then the Nagios display may lag behind reality.
+
+<h3>dt_donuts Plugin</h3>
+
+dt_donuts Plugin.
+The dt_donuts plugin is a front-end for the DNSSEC-Tools donuts command. A zone file is passed to donuts, which reports the number of errors found in the file. dt_donuts gives that error count to Nagios for display in its web interface.
+
+Look under the Modifications to Nagios Code section below for an example of the display provided by dt_donuts.
+
+<h3>dt_zonestat Plugin</h3>
+
+dt_zonestat Plugin.
+dt_zonestat determines the status of a zone and provides that information to Nagios for display. Depending on how it is executed, dt_zonestat will either retrieve the zone status from rollerd (using the rollctl command) or it will retrieve the status from the zone file (using the lsroll command.)
+Look under the Modifications to Nagios Code section below for an example of the display provided by dt_zonestat.
+
+<h3>Modification to Nagios Code</h3>
+
+Modification to Nagios Code.
+The Nagios status.c file was modified to provide rollover-specific service status in Nagios' Service Status screen. The rollover-specific service status will only be given for the Zone Rollover service.
+
+In this case, if the service's plugin returns 0 and its output contains either "KSK Rollover" or "ZSK Rollover", then the status column will be set to "ROLLING". If the service's plugin returns 1 or 2, then the status column will be set to "ATTENTION REQUIRED".
+
+It is assumed that the command associated with the Zone Rollover service will be dt_zonestat, but this is not required.
+This Nagios display is a consolidation of the dt_donuts and dt_zonestat plugins. In addition to showing how the two services may be displayed by Nagios, it also shows the special service status for the Zone Rollover service.
+
+<h3>dtnagobj Utility</h3>
+
+dtnagobj Utility.
+dtnagobj builds Nagios host and service objects based on a DNSSEC-Tools rollrec file. This simplifies incorporating DNSSEC-Tools monitoring into a Nagios environment.
+
+<h2>UEM Monitoring via Nagios</h2>
+
+UEM Monitoring via Nagios.
+The DNS User Experience Monitoring (UEM) system collects and monitors DNS performance information from a set of sensor nodes strategically distributed throughout the network. The primary design goal is to provide a central management entity with information, both near-time and historical, on DNS service health (connectivity, availability, response-time, and errors) as experienced by clients of the DNS. The DNS UEM system is intended to help provide enhanced situational awareness of DNS, as a service, in order to enable more rapid reaction to current problems and to enable proactive steps to preempt future ones.
+
+Each UEM monitoring datum is associated with a UEM sensor, a root nameserver, and a target host, and is for a particular type of DNS query. The operational UEM monitoring system has two sensors -- us-east and us-west. All 13 root nameservers are used in UEM monitoring. Three targets are used: the root of the DNS namespace, NIC.MIL, and TISLABS.COM. Two types of DNS queries are performed: DNS response time for NS record requests and response time for anycast requests. 
+
+For UEM, Nagios objects are not the simple objects they are for most installations. host objects combine sensors and requests, while service object names indicate the root nameserver and target host that the service is associated with. This may be seen 
+in the Nagios displays that follow.
+
+Several plugins were written to collect and present UEM data to Nagios. There were also graphs defined to give a historical view of UEM data. The standard Nagios command sidebar was modified to provide quick links to the UEM graphing webpage. These are described below.
+
+<h3>uem-dnsresp Plugin</h3>
+
+uem-dnsresp Plugin.
+The uem-dnsresp plugin retrieves the latest DNS response-time data from UEM sensor data stored on the UEM manager. These data, the most recent for each sensor/nameserver/target/query group, are displayed in tabular form.
+
+Nagios' services display sorts according to host. The initial letter in each host is used to force a particular ordering on the display. It isn't necessary, but makes it easier to find data.
+
+This Nagios display shows the DNS response times found by the us-east sensor when querying the root nameservers for the root, NIC.MIL, and TISLABS.COM. Due to window limitations, only the first 15 of 39 responses are shown. (3 targets * 13 root nameservers gives 39 total responses.)
+
+<h3>uem-anycaster Plugin</h3>
+
+uem-anycaster Plugin.
+The uem-anycaster plugin retrieves the latest DNS response-time data for anycast requests. The data are from the two UEM sensors and are stored on the UEM manager. These data, the most recent for each sensor/nameserver/target/query group, are displayed in tabular form.
+
+Nagios' services display sorts according to host. The initial letter in each host is used to force a particular ordering on the display. It isn't necessary, but makes it easier to find data.
+
+This Nagios display shows the DNS anycast response times found by the us-west sensor when querying the root nameservers. (The three target hosts -- the root, NIC.MIL, and TISLABS.COM -- are not involved in anycast requests.)
+
+<h3>uem-health Plugin</h3>
+
+uem-health Plugin.
+This plugin uses several criteria to determine if the UEM hosts may be considered healthy. The three UEM hosts are us-east, us-west, and the UEM manager.
+
+uem-health acts as a wrapper around check_disk and check_load, two standard Nagios plugins. If both standard plugins return non-warning and non-error responses, then the host is registered as healthy. The plugins are executed on the UEM hosts, so ssh access is required from the UEM manager to the UEM hosts.
+
+<h3>Nameserver Health</h3>
+
+Nameserver Health.
+This plugin attempts to determine if the root nameservers may be considered healthy. This is executed for each root nameserver.
+
+This is not a plugin created specifically for UEM. The Nameserver Health checks use check-ping, a standard Nagios plugin. This plugin attempts to contact each nameserver using the PING protocol. If the nameserver can be pinged, then the host is registered as healthy. Since the UEM system has no login access to any root nameserver, this is the best that can be done for checking the health of the root nameservers.
+
+As can be seen from the Nagios display below, the E-root and the G-root are not responding to pings. They never have, as long as the UEM project has been running.
+
+<h3>uem-perfdata Plugin</h3>
+
+uem-perfdata Plugin.
+This plugin is executed by Nagios to transfer UEM data from the UEM sensor data files to the round-robin databases used to create Nagios graphs.
+
+<h3>Nagios Sidebar Modifications</h3>
+
+Nagios Sidebar Modifications.
+This display shows the modifications made to the standard Nagios sidebar. This allows easy access to the UEM graphing page, plus quick links for a few example graphs.
+
+<h3>DNS Lookup Response Time Graphing</h3>
+
+DNS Lookup Response Time Graphing.
+This display shows the graph for DNS response data from the us-west sensor from the G-root nameserver for all three target hosts.
+
+The graphing is set up for the most recent 15 minutes, 1 hour, 4 hours, 12 hours, 1 day, 1 week, 1 month, and 1 year. Due to screen-space limitations, only the first three graphs are shown.
+This display shows the graph for DNS response data from the us-east sensor from all thirteen root nameserver for the root target.
+
+<h3>Anycast Response Time Graphing</h3>
+
+Anycast Response Time Graphing.
+This display shows the graph for DNS anycast response data from the us-west sensor from the J-root nameserver for all three target hosts. Anycast responses can come from any of a set of servers, as defined by the operators of each root nameserver. Not all of the instances defined for the J-root have responded in the displayed time period.
+
+The graphing is set up for the most recent 15 minutes, 1 hour, 4 hours, 12 hours, 1 day, 1 week, 1 month, and 1 year. Due to screen-space limitations, only the first three graphs are shown.
+
+
+</doc>

@@ -1,0 +1,74 @@
+---
+layout: default
+title:  DNSSEC-Tools -- DNSSEC-Check
+---
+<h1>DNSSEC-Check</h1>
+<h2>Overview</h2>
+
+Overview.
+The DNSSEC-Check applications examines the system's configured recursive resolvers for client-side DNSSEC support. It will perform a number of tests and display ared, greeen or yellow light based on its findings. In order for an end-system to perform DNSSEC queries through the resolver, each of these bubbles should ideally be green.
+
+<h2>Usage</h2>
+
+Usage.
+By default, DNSSEC-Check will start up, load the system's configured resolvers into list and wait for the user to hit the "Run Tests" button. Once the tests have started the lights will change from gray to a color indicating the results of the test.
+
+<h3>Testing Additional Resolvers</h3>
+
+Testing Additional Resolvers.
+Additional resolvers can be typed into the box below the existing resolver list to have them added to the list. For example, you can add google's public resolver (8.8.8.8) to test it's ability to serve DNSSEC data to you:
+
+<h3>Submitting Your Results</h3>
+
+Submitting Your Results.
+The DNSSEC-Tools project is also collecting data about which resolvers in the world support various DNSSEC-capable tests. To help us with this collection effort, we encourage you to click the Submit Results button to send the data to the DNSSEC-Tools server. The data collected constists of:
+
+<ul>
+- HASHed versions of the IP addresses of the resolvers tested
+- HASHed versions of the IP address submitting the data
+- Results of each of the test per HASH resolver address
+
+</ul>
+Once you click the Submit Results button you'll also receive a report of the current dataset, which will contain information you might find useful.
+
+You can also view the reported summary from the <a href="http://www.dnssec-tools.org/dnssec-check/">DNSSEC-Check Report Page</a> directly.
+
+<h2>Grading Your Resolvers</h2>
+
+Grading Your Resolvers.
+DNSSEC-Check assigns a letter grade to each resolver tested. This grade is determined as follows:
+
+<ul>
+- A: The resolver is fully DNSSEC compliant and is validating answers and is not returning known invalid data
+- B: The resolver is fully DNSSEC compliant but is not validating answers; It can be used with DNSSEC as a caching resolver though.
+- C: The resolver answers queries but can not be used to query for specific DNSSEC record types (eg, NSEC3 is a common failure)
+- D: The resolver only supports querying for the most basic record types and doesn't do EDNS0
+- F: The resolver isn't answering queries at all.
+
+</ul>
+<h2>Tests Conducted</h2>
+
+Tests Conducted.
+Below is a brief description of the tests conducted by the DNSSEC-Check utility:
+
+<ul>
+- DNS: Can we at least resolve a simple A record? If this is impossible, it's likely the resolver or the connection to it is not operational at all.
+- TCP: Can we perform a simple query over TCP, which is needed for larger DNSSEC queries (such as querying for large DNSKEYs)?
+- DO: Does the resolver properly support the DO bit? This test only checks that it is set in the response as well. "(Note that many resolvers copy the unknown bits into the response and don't actually support it. The next test will catch the failures of those resolvers.)
+- RRSIG: Are RRSIGs actually returned for a zone that is known to be signed when the DO bit is set?
+- EDNS0: Do we get a reasonable EDNS0 size from the resolver? (the actual value returned is in the help text)
+- NSEC: Does the resolver properly return an NSEC record for a non-existent name in a zone that is known to be signed with NSEC support?
+- NSEC: Does the resolver properly return an NSEC3 record for a non-existent name in a zone that is known to be signed with NSEC3 support?
+- DNSKEY: Can we query the resolver for DNSKEYs and a response with DNSKEYs in it?
+- DS: Can we query the resolver for DS records and get a response with DS records in it?
+- AD: Does the resolver perform DNSSEC validation itself?
+- DNAME: Does the resolver appropriately handle DNAME records with DNSSEC?
+
+</ul>
+<h3>Defining a comprehensive test list</h3>
+
+Defining a comprehensive test list.
+A comprehensive list of tests to run in order to verify a resolver's ability to act as a proper DNSSEC-aware recursive resolver are being jointly collected on the <a href="DNSSEC_aware_Resolver_Tests.html">DNSSEC-aware Resolver Tests</a> page.
+
+
+</doc>

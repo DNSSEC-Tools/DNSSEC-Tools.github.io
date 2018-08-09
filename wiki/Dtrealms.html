@@ -1,0 +1,23 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Dtrealms
+---
+<h1>Dtrealms</h1>
+<h2>About</h2>
+
+About.
+dtrealms manages multiple distinct DNSSEC-Tools rollover environments running simultaneously. Each rollover environment, called a realm, is defined in a realms file. dtrealms uses this file to determine how the rollover environment must be initialized such that it can run independently of the other rollover environments on a particular system. This is useful for such things as managing very large collections of zones, segregating customer zones, and software tests.
+
+The realms file may be created with the realminit command. Currently, the distinct environment for each realm must be created manually. It is hoped that a tool will soon be available to assist with creating each realm's environment.
+
+dtrealms isn't necessary for running multiple realms. However, it does make it easier to manage any number of realms running consecutively and in their own environment.
+
+The <a href="realmctl.html">realmctl</a> command can be used to communicate with a running dtrealms daemon.
+
+<h2>Example of a dtrealms Log File</h2>
+
+Example of a dtrealms Log File.
+Below is a dtrealms log file. This was created with an "info" log level. This log file shows two realms, example and test. After starting these realms, the grandvizier graphic display tool is started to monitor the realms' execution.
+
+
+</doc>

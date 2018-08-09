@@ -1,0 +1,34 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Building DNSSEC-Tools Applications on Windows
+---
+<h1>Building DNSSEC-Tools Applications on Windows</h1>
+This documents how to go about building the graphical DNSSEC-Tools applications (<a href="DNSSEC_Check.html">DNSSEC-Check</a>, [[DNSSEC-Nodes], ...) on windows.
+
+<h2>Prerequisites</h2>
+
+Prerequisites.
+You need to obtain and install a (free) copy of the <a href="http://qt.nokia.com/downloads">Qt developer SDK</a>, which contains most libraries and compilers you'll need. You MUST use the Qt mingw copy of GCC when building, as Windows is very picky about applications being built with the same tool chain.
+
+<h2>Compiling libval and libsres</h2>
+
+<h2>Compiling the graphical applications</h2>
+
+Compiling the graphical applications.
+The easiest way to compile them is to open the .pro file for each project within QtCreator and tell QtCreator to build them. The source code and .pro file for each of the applications occur within the validator/apps directory:
+
+<h2>Bundling the Applications</h2>
+
+Bundling the Applications.
+If you're going to distribute the applications to someone that doesn't have the Qt toolkit installed, you'll need to put the compiled application and the necessary shared libraries in a folder (and likely zip the whole folder up once you're done).
+
+<h3>DNSSEC-Tools Libraries Needed</h3>
+
+DNSSEC-Tools Libraries Needed.
+These are the needed libraries from the dnssec-tools build:
+
+<h3>MingGW Libraries Needed</h3>
+
+<h3>Qt Libraries Needed</h3>
+
+</doc>

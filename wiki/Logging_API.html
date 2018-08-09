@@ -1,0 +1,92 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Logging API
+---
+<h1>Logging API</h1>
+<h2>Logging Requirements from the DNSSEC-Tools</h2>
+
+<ul>
+Logging Requirements from the DNSSEC-Tools.
+- allow multiple applications to use a similar output format
+- allow multiple applications to use similar command line options for selecting what to log
+- allow applications to prioritize a log level (eg, 1-9)
+- allow applications to "tag" log strings with an indication of the content
+- allow users to select what to view based on tags and priority
+- allow log messages to go to any or multiple of
+<ul>
+- stdout/stderr
+- a file
+- syslog
+- a callback?
+
+</ul>
+</ul>
+<h2>Proposed Architecture</h2>
+
+Proposed Architecture.
+The architecture below would offer (in both perl and C):
+
+<ol>
+1. A common API for processing command line logging requests
+2. An API for logging level/tags/strings/arguments from the application
+<ul>
+- Which would internally redistribute information
+- Would filter, per destination, based on level/tags
+</ul>
+</ol>
+<a href="http://www.hardakers.net/temp/logging-API.png"></a>
+
+<h2>Command Line Options</h2>
+
+Command Line Options.
+The current perl and C-library based command line utilities use multiple forms of CLI options. This section documents existing practice as well as how the tools can use a common API for all the commands in the future.
+
+<h3>Current options</h3>
+
+<ul>
+Current options.
+- validate, and libval, currently accept:
+<ul>
+- -o 7:stderr for selecting what level and where to log to
+</ul>
+- rollerd accepts:
+<ul>
+- -loglevel <level>
+- -logfile <logfile>
+- -verbose
+
+</ul>
+</ul>
+<h3>Proposed options</h3>
+
+<h4>--log</h4>
+
+Proposed options.
+--log.
+Location ideas:
+
+Then we need to be able to specify the level/tag options as well. ("level" below is identified via a string of numbers only).
+
+<h3>Proposed API</h3>
+
+Proposed API.
+Ideally, our perl and C libraries should support these:
+
+<h4>Proposed Logging API</h4>
+
+Proposed Logging API.
+ dnssec_tools_log(int level, char* tagstring, char *format_string, ...);
+
+Example:
+
+<h4>Proposed Selection API</h4>
+
+Proposed Selection API.
+ dnssec_tools_log_parse_option(char *string); // proceses --log options
+
+<h3>Log Implementation Flow</h3>
+
+Log Implementation Flow.
+ dnssec_tools_log (level, tags, format_string, args...) {
+
+</doc>

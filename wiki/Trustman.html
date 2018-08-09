@@ -1,0 +1,63 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Trustman
+---
+<h1>Trustman</h1>
+Trustman implements <a href="http://www.ietf.org/rfc/rfc5011.txt">RFC5011</a> which defines "Automated Updates of DNS Security (DNSSEC) Trust Anchors". It does this by continually running as a daemon looking for new keys published by the authoritative zones for which <a href="Trust_Anchor.html">Trust Anchors</a> (TAs) have been configured.
+
+Learn how to get started by reading !
+
+<h2>Trustman TODO</h2>
+
+Trustman TODO.
+This is a list of todo items for the tool:
+
+<ul>
+- TODO this was apparently not done yet: verify that getdnskeys functionality is now in trustman, especially the ability to bootstrap trust anchors
+<ul>
+- considering recent TAR improvements and things, this is a larger item and half of it is already done. See Wes for details.
+- This was a dup: TODO Bootstrapping trust-anchors in trustman
+
+</ul>
+</ul>
+<ul>
+- TODO modify trustman to have to ability to migrate to a higher level trust anchor if we detect all zones between two trust anchors to be signed
+
+</ul>
+<ul>
+- TODO Need to carefully test rollerd with trustman; saw some dnssec response errors in trustman while rollover operation was being performed (SNIP Workshop)
+
+</ul>
+<ul>
+- TODO Trustman needs to use correct validator policy (as per dnsval.conf file) while doing validation
+
+</ul>
+<ul>
+- TODO Trustman needs to be able to work with trust anchors that are encoded as DS records
+
+</ul>
+<ul>
+- TODO Check revoke operation with BIND and rollerd
+
+</ul>
+<ul>
+- TODO Support unbound configuration file
+<ul>
+- editing ability needs to be split into a separate file; see convertar details
+
+</ul>
+</ul>
+<ul>
+- TODO merging functions being provided by other tools (getkeys, tachk) into trustman
+<ul>
+- change: put into modules and make all tools use them (see convertar for module structure)
+
+</ul>
+</ul>
+<ul>
+- TODO should work well if a software update changes the trust anchors OOB
+
+</ul>
+
+
+</doc>

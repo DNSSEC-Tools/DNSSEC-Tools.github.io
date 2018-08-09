@@ -1,0 +1,69 @@
+---
+layout: default
+title:  DNSSEC-Tools -- DNSSEC Applications
+---
+<h1>DNSSEC Applications</h1>
+This is a brief introduction into the set of applications that have
+been patched to support DNSSEC queries via the DNSSEC-Tools package.
+
+=First Things First=
+
+Here's how to set up your system to use the DNSSEC-aware applications.
+
+This section must be filled in by someone who knows.
+
+=DNSSEC-Aware Applications=
+
+The DNSSEC-Tools project has created a number of application
+patches so that they issue their DNS queries using the
+DNSSEC-Tools <a href="libval.html">DNSSEC validating library</a>. This allows the
+applications to trust the DNS responses it receives and to pass back DNSSEC validation error messages directly to their users.
+See the three examples of how a Firefox web-browser user will see DNSSEC related messages when they visit a URL that fails DNSSEC validation
+(i.e. a lookup that gives a bogus IP address).
+
+<h2>Unpatched Firefox using a non-DNSSEC recursive server</h2>
+Unpatched Firefox using a non-DNSSEC recursive server.
+If an unpatched browser goes to a bogus (e.g. spoofed) IP address it may end up at the wrong site and would not notice.
+
+<h2>Unpatched Firefox using a DNSSEC supporting recursive server</h2>
+
+Unpatched Firefox using a DNSSEC supporting recursive server.
+If an unpatched browser goes to a bogus (e.g. spoofed) IP address it would not go to the bogus web site because the <a href="Recursive_Server.html">validating resolver</a> would prevent it from receiving invalid DNS data. Instead, the browser would be told there was no such host.
+
+<h2>Patched Firefox using DNSSEC-Tool's validator library</h2>
+
+Patched Firefox using DNSSEC-Tool's validator library.
+If an application is using application level DNSSEC validation then it has the ability to more accurately display the reason behind the inability to visit a given site:
+
+The main advantage of these patches is that the users can know why
+their attempted network connections failed.
+
+<h2>Using the Patches</h2>
+
+Using the Patches.
+With the exception of
+Firefox, to use these patches, a user will have to install
+DNSSEC-Tools, download the application's source code, apply the patch contained within the DNSSEC-Tools package, compile and then install the patched version of the application. The DNSSEC-Tool's download site has pre-compiled versions of the patched Firefox Fedora RPMs available.
+
+Note:
+
+The list of domains that require DNSSEC validation and domains that
+do not require validation is configurable using libval's configuration
+file, <a href="dnsval_conf.html">dnsval.conf</a>, (normally in
+/usr/local/etc/dnssec-tools/dnsval.conf). This file allows an administrator to specify
+which domains require validation and which trust anchors to use for
+those domains. A patched application will only require validation
+for the domains requiring validation as specified in the policies in dnsval.conf.
+
+=Configuring DNSSEC Validation Policy=
+
+When using these patches, the configuration of the DNSSEC-Tool's
+libval (in <a href="dnsval_conf.html">dnsval.conf</a>) determines which sites require DNSSEC
+validation, which sites don't require DNSSEC validation, and the set
+of <a href="Trust_Anchor.html">Trust Anchors</a> available to use.
+=DNSSEC Applications=
+
+=Software Summary=
+
+
+</doc>

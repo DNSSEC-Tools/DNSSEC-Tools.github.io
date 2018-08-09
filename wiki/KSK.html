@@ -1,0 +1,17 @@
+---
+layout: default
+title:  DNSSEC-Tools -- KSK
+---
+<h1>KSK</h1>
+KSKs are Key Signing Keys, which are a type of <a href="DNSKEY.html">DNSKEY</a>. KSKs are used only to sign the keys contained within a zone. Because they are used to sign less data their usable cryptographic life time can be longer before needing to create new ones. They can also be longer since the longer signatures produced through their use will only be attached to a single <a href="RRset.html">RRset</a> within a zone (the <a href="DNSKEY.html">DNSKEY</a> RRset). <a href="ZSK.html">ZSKs</a> on the other hand need to be changed on a more frequent basis since they are used to sign more data. KSKs are expected to be the keys configured for use by validating resolvers as <a href="Trust_Anchor.html">Trust Anchors</a>.
+
+<a href="Zonesigner.html">Zonesigner</a> creates and uses <a href="DNSKEY.html">DNSKEYs</a> to sign the contents of a zone file.
+
+<a href="Rollerd.html">Rollerd</a> can be used to update keys on a regular schedule.
+
+<h2>See Also</h2>
+
+See Also.
+The <a href="Trust_Anchor.html">Trust Anchor</a> page has a long example of what needs to be done to validate a signature up until it reaches a <a href="Trust_Anchor.html">Trust Anchor</a>.
+
+</doc>

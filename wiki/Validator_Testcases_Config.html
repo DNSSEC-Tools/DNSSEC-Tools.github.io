@@ -1,0 +1,44 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Validator Testcases Config
+---
+<h1>Validator Testcases Config</h1>
+This page specified the format of the configuration file used for validator test cases.
+
+<h2>Overview</h2>
+Overview.
+The validator application can run series of tests to exercise the library code for a variety of test cases. Originally these test cases were hardcoded.
+
+<h2>Specification</h2>
+
+<h3>Requirements</h3>
+<ul>
+Specification.
+Requirements.
+- Each test case should have a text description
+- Each test case should be a query for a single domain/class/type tuple
+- Each test case should have a specific set of expected validation results
+- Tests cases should be able to be grouped into a "suite" of tests
+- All tests for a suite must be specified sequentially
+- All tests not grouped into a suite will be collected in a "default" suite
+
+</ul>
+<h3>Storage structure</h3>
+Storage structure.
+The internal storage for testcases is:
+<h2>File format</h2>
+
+File format.
+The general format is:
+Of special note:
+<ul>
+- suite label must not contain whitespace, and is terminated with a colon (':')
+- all tests after a suite label belong to that label
+- test case decription must be enclosed in double quote if it contain spaces
+- a test case must be terminated by a semi-colon ';'
+- class, type and result code may be numerical or textual
+</ul>
+For example:
+
+
+</doc>

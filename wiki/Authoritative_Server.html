@@ -1,0 +1,55 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Authoritative Server
+---
+<h1>Authoritative Server</h1>
+This is a brief description of the parts of DNSSEC-Tools package an
+administrator for a DNSSEC aware authoritative name server could
+find useful. The server could be a on small scale, a single zone, or
+a larger scale with multiple zones. 
+
+<h2>Authoritative DNS Administrator</h2>
+
+Authoritative DNS Administrator.
+Currently, DNSSEC-Tools has a large number of tools that are useful
+for managing DNSSEC aware authoritative domain name servers. The
+first thing to do is get some DNS server software that supports
+DNSSEC. For information on the available DNS server packages,
+<a href="http://www.dnssec-deployment.org">dnssec-deployment.org</a> and
+<a href="http://www.dnssec.net">dnssec.net</a> are good places to start looking.
+Setting up the DNS server itself is out of scope for this
+discussion. Most DNS server software (and all the major ones)
+support DNSSEC. 
+
+Although the DNSSEC-Tools packages can be useful with any DNSSEC
+supporting name server, they are most useful with
+<a href="http://www.isc.org/products/BIND/">Bind</a> domain name server.
+
+A more detailed description follows, but here is a quick listing of
+useful DNSSEC-Tools tools:
+
+<ul>
+- Zonesigner is the cornerstone tool. It is used for signing and re-signing zone files. It can also generate the necessary keys for the DNS zone signing process.
+- Rollerd automates 'rolling' of Zone Signing and Key Signing Keys (ZSKs and KSKs).
+- Rollctl can control rollerd without restarting rollerd.
+- Donuts will syntax check signed zone files for DNSSEC as well as general DNS errors.
+- Donutsd is the deamonized version of donuts, will check zone files regularly and automatically notify administrator(s).
+- Mapper creates graphical descriptions of zone files.
+- Dnspktflow creates a graphical description of DNS packets as they flow through a network (using tcpdump).
+- And the current version of logwatch has been updated to scan for DNSSEC output from a Bind server.
+
+</ul>
+
+<h2>General Error Checking Tools</h2>
+
+General Error Checking Tools.
+Check out the error checking tools section below. It
+includes general DNSSEC error checking tools as well as tools that
+error check for a specific type of use or user. Some of the tools
+may be useful to you even though we didn't think they applied
+specifically to authoritative DNSSEC server administration.
+
+<h2>Software Summary</h2>
+
+
+</doc>

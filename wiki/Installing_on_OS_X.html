@@ -1,0 +1,69 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Installing on OS X
+---
+<h1>Installing on OS X</h1>
+Installing on OSX 10.6.3 (Snow Leopard)
+DNSSEC-Tools 1.6 has been installed and tested on OSX 10.6.3 (Snow Leopard).
+This page contains notes and comments from this installation.
+
+The installation package used was the DNSSEC-Tools 1.6 tarball available from
+http://www.dnssec-tools.org/download. After unpacking the file, the basic
+DNSSEC-Tools installation inscriptions, found in INSTALL, were
+followed. These notes provide amplification upon those instructions.
+
+Perl Modules
+When installing from CPAN, a number of modules gave the following sorts of
+warning messages:
+
+Even though these warnings did occur, the module tests passed. In addition,
+it doesn't look like these issues have caused any problems with the
+DNSSEC-Tools software.
+
+In order to install the MailTools module, I found I had to run this
+command from within cpan:
+
+Other variations (install MailTools, install MailTools-2.06)
+didn't work.
+
+Gtk2
+After building Gtk2 (within cpan), the pre-install tests resulted in
+lots of errors. In particular, this error came up frequently:
+
+However, the test itself always reported that it ran okay. In the end, I had
+to run force install Gtk2.
+
+Building DNSSEC-Tools 1.6
+There were several warnings encountered during the build, most of which had to
+do with string formats and incorrect library architectures.
+
+In particular, ranlib always reported that libraries had no symbols.
+However, nm showed that the libraries did have symbols.
+
+Despite these warnings, DNSSEC-Tools 1.6 is working properly.
+
+Perl Tk
+In order to run several of the GUI-based DNSSEC-Tools utilities (e.g.,
+blinkenlights, rollrec-editor, etc.), you must install the Tk modules
+for Perl. This was not listed in the INSTALL directions.
+
+It took several attempts to get Perl Tk installed.
+
+Running DNSSEC-Tools tests
+The tests in .../testing require the Text::Diff Perl module, but
+this wasn't mentioned in the INSTALL file. Install this module with
+CPAN prior to running the tests.
+
+The tests ran successfully, with no errors reported.
+
+logwatch
+The URL in tools/logwatch/README is incorrect; you must get
+logwatch from http://sourceforge.net/projects/logwatch.
+
+The README lists the current logwatch version as 6.0.2, but the
+README was written in 2005. The current version is 7.3.6.
+
+I did not install nor test logwatch. When this has been done, this
+page will be updated.
+
+</doc>

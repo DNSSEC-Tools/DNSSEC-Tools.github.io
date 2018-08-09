@@ -1,0 +1,29 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Zonesigner
+---
+<h1>Zonesigner</h1>
+<h2>About</h2>
+
+About.
+Zonesigner is a DNS Zone File signing script that makes the process of signing DNS zones incredibly easy. With a single call to the script you can perform all the needed operations of zonesigning in one call. Although it is designed to "just do the right thing" It is highly flexible and can be tailored to meet the needs of each deployed environment.
+
+<h2>Getting Started</h2>
+
+Getting Started.
+You can either keep reading, or you might be interested in watching <a href="http://www.youtube.com/watch?v=7ksgTFxAg6U">A demonstration video</a> on the subject.
+
+Getting started with zonesigner is easy. Simply run it as follows the first time:
+
+It will generate new keys for you (that's what the --genkeys option does) and place the finished and signed zone file in the db.example.com.signed file which you should serve with your name server. Next time you need to update your zone simply run the same command without the --genkeys option:
+
+That's it! There are, of course, many other options.
+
+See the <a href="Sign_Your_Zone.html">Sign Your Zone</a> page for a complete example with data and output results, as well as the <a href="http://www.dnssec-tools.org/txt/zonesigner-example.txt">example output</a> web page for other example usage.
+
+<h2>NSEC3 Support</h2>
+
+NSEC3 Support.
+ defines support for <a href="NSEC3.html">NSEC3</a> which prevents zone enumeration and walking. If you wish to use NSEC3 you'll need version 9.6 of the <a href="bind.html">bind</a> software or later and version 1.5 or later of the DNSSEC-Tools package. Use the --usensec3 flag to zonesigner to sign your zone with NSEC3 support.
+
+</doc>

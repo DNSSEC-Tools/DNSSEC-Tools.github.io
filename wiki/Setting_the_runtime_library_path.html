@@ -1,0 +1,13 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Setting the runtime library path
+---
+<h1>Setting the runtime library path</h1>
+To modify your run-time library loading path you may need to modify your existing system environment to ensure it contains the /usr/local/lib directory, assuming you used a default install perfix when you ran configure.
+
+<h2>Linux</h2>
+
+Linux.
+On linux, add the libsres and libval library location (E.G. /usr/local/lib) to /etc/ld.so.conf, then run ldconfig.
+
+</doc>

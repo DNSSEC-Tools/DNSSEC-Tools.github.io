@@ -1,0 +1,122 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Libval and libsres
+---
+<h1>Libval and libsres</h1>
+<h2>Overview</h2>
+
+Overview.
+libval is a validating library that comes with the DNSSEC-Tools package. It allows applications to issue DNS queries and verify that the returned responses are trusted as defined by the policies defined in the system's <a href="dnsval_conf.html">dnsval.conf</a> file. libsres is a resolver library that libval makes use of when querying the net for DNS data. Generally, <a href="DNSSEC_Application_Development.html">application developers</a> will only need to use the APIs defined in the libval library.
+
+Libval was probably the first DNSSEC stub validator implementation that came about for the current DNSSEC specification. It is based on an API defined in an internet-draft: <a href="http://tools.ietf.org/html/draft-hayatnagarkar-dnsext-validator-api-09">draft-hayatnagarkar-dnsext-validator-api</a>. Libval is needed, in addition to a validating recursive name servers, to give application authors complete assurance that validation was performed locally. This cannot be guaranteed if only a recursive name server is relied upon for validation since the determination of "local" is made by the resolver's administrator. An assumption on the locality of a nameserver may hold one day, but not on another. Policies applicable for the global system may also not be sufficient for a particular application, whereas libval provides each application with a resolution policy framework they can tailor if need be.
+
+<h2>Features</h2>
+
+Features.
+Some of the high-level features of libval are given below:
+
+<ul>
+- It provides the application with a robust API for determining validation status and the reasons for validation failures.
+
+</ul>
+<ul>
+- It provides flexibility and greater control over defining *application-specific* validation policies
+
+</ul>
+<ul>
+- The -threads version is thread-safe. The library can also be built on systems that do not support threads.
+
+</ul>
+<ul>
+- It has the ability to send out asynchronous queries, where the application can continue to do other tasks while the different lookups on-the-wire complete. In the libval implementation we support the async querying ability without having to spawn a new thread or a new process.
+
+</ul>
+<ul>
+- It will work nicely if you provide it with a recursive name server to direct its queries to. If recursive name servers are not available or if the default name servers provided to libval are broken in some respect, libval will attempt an iterative lookup from root in order to find an answer that it can work with.
+
+</ul>
+<ul>
+- The library has been ported to a number of platforms including certain "mobile" device platforms such as Android, Maemo, Meego and Harmattan.
+
+</ul>
+<ul>
+- There are probably more worked examples of applications that have been made DNSSEC-capable using libval than other libraries at present.
+
+</ul>
+<ul>
+- Contains initial support for DANE. Full DANE support should be available soon.
+
+</ul>
+<h3>Example Policy Specifications</h3>
+Example Policy Specifications.
+TBD
+
+<h2>Comparison</h2>
+
+Comparison.
+The following other DNSSEC validation libraries exist besides libval:
+
+<ul>
+- <a href="http://www.nlnetlabs.nl/projects/ldns/">ldns</a>
+- <a href="https://www.knot-dns.cz/">Knot</a>
+
+</ul>
+<h3>Comparison Chart</h3>
+
+Comparison Chart.
+! Feature
+! libval
+! ldns
+! knot
+! Language 
+! License 
+! Requires
+<ul>
+- OpenSSL
+- OpenSSL
+- liburcu
+- OpenSSL
+- lex / bison
+</ul>
+! Optional
+<ul>
+- pthread
+- ???
+- ???
+</ul>
+! DNSSEC Support
+
+! GOST support
+! ECDSA support
+
+! Python Bindings 
+
+! Perl Bindings 
+
+! Asynchronous API 
+
+! Synchronous API
+
+! Thread-safe
+
+! Can be built without threads 
+
+! Legacy Exact API Replacements 
+
+! Shim Library 
+
+! Application Specific Contexts and Policies 
+
+! DANE Support 
+
+! Smart fallback strategies 
+
+! C-API for signing/reading zone files
+! CLI Tools (lookups, etc)
+
+! Extensive debugging output
+
+! Time in ms for 100,000 validated www.dnssec-tools.org lookups 
+
+
+</doc>

@@ -1,0 +1,62 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Dnsval.conf
+---
+<h1>Dnsval.conf</h1>
+=dnsval.conf=
+
+/usr/local/etc/dnssec-tools/dnsval.conf or /etc/dnssec-tools/dnsval.conf (location can vary by distribution)
+
+The dnsval.conf file contains the configured <a href="libval_and_libsres.html">validator</a> policy. <a href="DNSSEC_Application_Development.html">Application Developers</a> that use <a href="libval_and_libsres.html">libval</a> library for issuing DNS queries allow the system administrator the ability to configure local DNSSEC policies through editing this file.
+
+The dnssec.val file contents consists of a sequence of the following policy-fragments:
+
+Policies are identified by simple text strings called labels, which must be unique within the configuration system. For example, "browser" could be used as the label that defines the validator policy for all web-browsers in a system. A label value of ":" identifies the default policy. The default policy is used when a NULL context is specified as the ctx parameter for interfaces listed in <a href="libval_and_libsres.html">libval(3), val_getaddrinfo(3), and val_gethostbyname(3)</a>. The default policy is unique within the configuration system.
+
+KEYWORD is the specific policy component that is specified within the policy fragment. The format of additional-data depends on the keyword specified.
+
+If multiple policy fragments are defined for the same label and keyword combination then the last definition in the file is used.
+
+The following keywords are defined for dnsval.conf:
+
+<h3>trust-anchor</h3>
+
+trust-anchor.
+Specifies the trust anchors for a sequence of zones. The additional data portion for this keyword is a quoted string containing the RDATA portion for the trust anchor's DNSKEY.
+
+<h3>zone-security-expectation</h3>
+
+zone-security-expectation.
+Specifies the local security expectation for a zone. The additional data portion for this keyword is the zone's trust status - ignore, validate, trusted, or untrusted. The default zone security expectation is validate.
+
+<h3>provably-insecure-status</h3>
+
+provably-insecure-status.
+Specifies if the provably insecure condition must be considered as trusted or not. The additional data portion for this keyword is the trust status for the provably insecure condition for a given zone - trusted, or untrusted. The default provably insecure status is trusted.
+
+<h3>clock-skew</h3>
+
+clock-skew.
+Specifies how many seconds of clock skew is acceptable when verifying signatures for data from a given zone. The additional data portion for this keyword is the number of seconds of clock skew that is acceptable. A value of -1 completely ignores inception and expiration times on signatures for data from a given zone. The default clock skew is 0.
+
+<h2>if LIBVAL_NSEC3 is enabled</h2>
+
+<h3>nsec3-max-iter</h3>
+
+if LIBVAL_NSEC3 is enabled.
+nsec3-max-iter.
+Specifies the maximum number of iterations allowable while computing the NSEC3 hash for a zone. A value of -1 does not place a maximum limit on the number of iterations. This is also the default setting for a zone.
+
+<h2>if LIBVAL_DLV is enabled</h2>
+
+<h3>dlv-trust-points</h3>
+
+if LIBVAL_DLV is enabled.
+dlv-trust-points.
+Specifies the DLV tree for the target zone.
+=Example=
+
+<h2>With DLV support</h2>
+
+
+</doc>

@@ -1,0 +1,23 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Firefox
+---
+<h1>Firefox</h1>
+This is a patch to apply to the mozilla/FireFox code that enables DNSSEC checking of DNS lookups done within FireFox. A new preference screen is included that allows the user to disable DNSSEC validation at runtime.
+
+DNSSEC Validation is done using the <a href="libval_and_libsres.html">libval</a> library and conforms to the policies defined in the <a href="dnsval_conf.html">dnsval.conf</a> file.
+
+<h2>About Bloodhound</h2>
+
+About Bloodhound.
+Bloodhound is a re-branded version of the Mozilla Firefox browser that supports local DNSSEC validation and the DANE protocol. For more information about Bloodhound see <a href="http://www.dnssec-tools.org/bloodhound/bloodhound.html">this page</a>
+
+<h2>DNSSEC-Status Plugin</h2>
+
+DNSSEC-Status Plugin.
+This plugin shows the user how many DNS lookups were done in order to display the current page. It summarizes the lookups based on whether they were validated, trusted because of <a href="dnsval_conf.html">policy</a> or failed due to DNSSEC validation errors.
+
+<h2>Screen Shots</h2>
+
+
+</doc>

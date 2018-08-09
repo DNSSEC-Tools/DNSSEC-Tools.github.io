@@ -1,0 +1,156 @@
+---
+layout: default
+title:  DNSSEC-Tools -- DNSSEC-Nodes
+---
+<h1>DNSSEC-Nodes</h1>
+The DNSSEC-Nodes application is a graphical debugging utility that allows administrators to watch the data being logged into a libval or bind logging file.
+
+Watch the <a href="http://www.youtube.com/watch?v=kTtfeoaisZ8">Demonstration Video</a>!!!
+
+<h2>Features</h2>
+
+<ul>
+Features.
+- Dynamically issue DNS requests and the results will immediately update the graph
+- Display data found in log files from:
+<ul>
+- <a href="libval.html">libval</a>
+- <a href="bind.html">Bind's</a> DNS <a href="Named.html">"named"</a> daemon
+</ul>
+- Filter results on the screen based on:
+<ul>
+- DNS Resource Record Types (A, AAAA, ...)
+- DNSSEC Status Results (Validated, Trusted, ...)
+- By regular expression name matching ("dnssec-tools")
+
+</ul>
+</ul>
+<h2>Color Legend</h2>
+
+Color Legend.
+The Help menu has a Legend option which will show the following screen:
+
+<h2>How to Use DNSSEC-Nodes</h2>
+
+How to Use DNSSEC-Nodes.
+By default, DNSSEC-Nodes starts with only a single node: the "root"
+node. As you start collecting information about other DNSSEC nodes,
+the graph will expand outward from this central node.
+
+Note: the root node is colored yellow because the trust anchor configured for it is assumed to be trusted as configured by the operator. Technically, it is not "validated" since nothing validated it.
+
+<h3>Querying for a DNS Record</h3>
+
+Querying for a DNS Record.
+The toolbar at the bottom of the screen has a dialog box for querying
+for new nodes, as well as selecting the typo to query. It also has
+zoom buttons allowing you to zoom in and out from the display.
+
+Enter a name to look up in the bottom of the box. Here are some
+interesting names to try:
+
+<ul>
+- www.dnssec-tools.org (validated; i.e. green)
+- www.cnn.com (trusted and not validated; i.e. yellow)
+- badsign-a.test.dnssec-tools.org (untrusted/bogus; i.e. red)
+
+</ul>
+Once you enter a name, hit return to see the graph updated with the
+new data.
+
+<h3>Getting the Details</h3>
+
+Getting the Details.
+If you click on any node you'll get an informational line at the top
+of the display telling you the name of the node you clicked on, as
+well as offering you a "Details..." button for showing additional
+information. Alternatively, if you right-click on a node it'll bring
+up the additional information dialog box immediately.
+
+The "additional information" dialog box presents you with all the
+details seen for the node so far. For example, here's the dialog box
+for the cnn.com node:
+
+In this case, we've noticed that the DS record provably does not
+exist. This is where the tree becomes "provably insecure" and
+everything beyond it can only be "trusted" (unless additional trust
+anchors have been configured into the validator).
+
+"For the Experts Note: Although this data is actually published by
+the parent, the node name is registered with the child and this graph
+displays data based on the name associated with the record, not based
+on ownership."
+
+The "Log Messages" tab also allows you to see the exact log messages
+from the validator that were captured and decoded.
+
+<h3>Applying Data Filters</h3>
+
+Applying Data Filters.
+DNSSEC-Nodes also lets you selectively highlight nodes of particular
+interest based on:
+
+<ul>
+- Their DNSSEC Status (Validated, Trusted, Failed Validation, ...)
+- DNS Data Types (A, AAAA, DS, DNSKEY, ...)
+- By Name
+
+</ul>
+Once you activate one of theses filters, a configuration widget is
+displayed letting you further refine your filtering choices.
+
+Here's a screen showing the highlighting of any nodes that have failed
+validation. The rest of the nodes have been "dimmed" and the filtered
+nodes are also raised to the top of the stack for better visibility in
+cluttered diagrams.
+
+<h3>Watching DNS Log Files</h3>
+
+Watching DNS Log Files.
+Under the file menu, you'll find menu options that will let you watch
+log files and continually update the graph as new data arrives.
+You'll need to configure your validating software to display the
+necessary debugging data to make use of this, however, and details for
+doing this can be found below.
+
+<h4>libval</h4>
+
+libval.
+The DNSSEC-Tools validating library can be configured globally within
+the dnsval.conf file (eg, /etc/dnssec-tools/dnsval.conf) by adding
+lines like the following:
+
+Then you can use the File -> Open and Watch a Log File menu item
+to track what happens in this file.
+
+<h4>bind / named</h4>
+
+bind / named.
+The bind/named software can be configured to turn on very verbose
+debugging, which dnssec-nodes can then use by adding the following
+lines to the named.conf file (in a section of its own; i.e., not
+in the options section).
+
+This log file can then be watched using DNSSEC-Nodes.
+
+<h4>unbound</h4>
+
+unbound.
+Coming soon!
+
+<h3>Preferences</h3>
+
+<h4>Limiting The Maximum Number of Nodes Shown</h4>
+
+Preferences.
+Limiting The Maximum Number of Nodes Shown.
+Using the Options -> Preferences menu, you can configure two methods of limiting the number of nodes shown on the screen. As the number of nodes gets very large you'll find the application begins to slow down. These options let you phase out the older data based on either the number of nodes collected so far, or based on time. You can either show at most "so many nodes" or limit what's on the screen based on how long ago the node's data was updated. You can turn both of these limiting factors on at the same time, as well, and the first one to trigger a node-removal will do so.
+
+<h2>Example Log-Watching Screen-Shots</h2>
+
+Example Log-Watching Screen-Shots.
+Here's a sample screen-shot of loading the cnn.com web page using the
+DNSSEC-Tools instrumented version of <a href="Firefox.html">Firefox</a>:
+
+
+</doc>

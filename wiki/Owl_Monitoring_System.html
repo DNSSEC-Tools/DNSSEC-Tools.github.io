@@ -1,0 +1,181 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Owl Monitoring System
+---
+<h1>Owl Monitoring System</h1>
+<h2>About</h2>
+
+About.
+The Owl Monitoring System uses timed Domain Name System (DNS) queries to monitor basic network functionality. The system consists of a manager host and a set of sensor hosts. The Owl sensors perform periodic DNS queries and report to the Owl manager the time taken for each query. Over time, this shows the responsiveness of the DNS infrastructure.
+
+The Owl Monitoring System was designed such that the Owl sensor hosts need not be under the same administrative control as the Owl manager host. In fact, each sensor in a set of Owl sensors may be under administrative control of different organizations and still report to a single Owl manager.
+
+An Owl sensor may provide its data to more than one Owl manager. In such situations, the managers operate independently of each other and do not know of each other's existence. Throughout the installation manuals, it will be assumed that an installation will have a single manager. Special instructions for multiple-manager environments will be given where needed.
+
+Contact between sensors and their manager may be initiated and performed by the sensor or the manager. This is a configuration decision that must be made on a case by case basis. The push or pull model may cover all of an Owl manager's sensors. For example, a particular manager may initiate sensor data retrieval from all of its sensors. Also, the push/pull model may be specific to each sensor, so a particular manager could retrieve data from one sensor but wait for another sensor to provide its data.
+
+The <a href="https://www.dnssec-tools.org/docs/owl-monitor/install-guide.html">Owl Installation Manual</a> provides an operational overview of the Owl system, installation instructions for the Owl and supporting third-party software. Configuration instructions for the Owl software are also provided, along with configuration information for the required third-party software.
+
+<h2>Quickstart Instructions</h2>
+
+Quickstart Instructions.
+This set of instructions assume the following:
+<ul>
+- nagios is installed in /usr/local/nagios
+- nagiosgraph is installed in /usr/local/nagiosgraph.
+- The nagios user and group are defined as nagios:nagios
+- The owl-manager files are present in the /opt/src/manager directory
+- The owl-sensor files are present in the /opt/src/sensor directory
+
+</ul>
+<h4>Step 0: Install pre-requisite packages</h4>
+
+<ul>
+Step 0: Install pre-requisite packages.
+- Perl packages:
+</ul>
+ # wget http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.i686.rpm 
+
+<ul>
+- rrsync:
+</ul>
+ # wget http://ftp.samba.org/pub/unpacked/rsync/support/rrsync
+
+<h3>Install Manager on Centos with Nagios and Nagiosgraph pre-installed</h3>
+
+<h4>Step 1: Create the owlmanager user and set an initial password</h4>
+
+Install Manager on Centos with Nagios and Nagiosgraph pre-installed.
+Step 1: Create the owlmanager user and set an initial password.
+ # useradd -m owl-manager
+
+<h4>Step 2: Create a directory for storing owl-manager data files</h4>
+
+Step 2: Create a directory for storing owl-manager data files.
+ # mkdir -p /var/opt/owl/data
+
+<h4>Step 3: Install binaries for owl-manager utilities</h4>
+
+Step 3: Install binaries for owl-manager utilities.
+ # mkdir -p /usr/local/owl/bin
+
+<h4>Step 4: Install and customize the owl-dnswatch and owl-perfdata scripts</h4>
+
+Step 4: Install and customize the owl-dnswatch and owl-perfdata scripts.
+ # cd /usr/local/nagios/libexec/
+
+<ul>
+- Modify /usr/local/nagios/libexec/owl-dnswatch as follows:
+</ul>
+old:
+new:
+
+<ul>
+- Modify /usr/local/nagios/libexec/owl-perfdata as follows:
+</ul>
+old:
+new:
+
+<h4>Step 5: Set owl parameters for rrd</h4>
+<ul>
+Step 5: Set owl parameters for rrd.
+- Set the following options in /usr/local/nagiosgraph/etc/nagiosgraph.conf
+
+</ul>
+
+<ul>
+- Add the following to the end of /usr/local/nagiosgraph/etc/map
+</ul>
+ # Service type: Owl Monitor - DNS response data from owl-dnswatch
+
+<h4>Step 6: Add nagios templates and objects for use by Owl</h4>
+
+<ul>
+Step 6: Add nagios templates and objects for use by Owl.
+- Copy owl templates
+
+</ul>
+
+<ul>
+- Add templates to the nagios configuration
+
+</ul>
+In /usr/local/nagios/etc/nagios.cfg add the following lines:
+
+<ul>
+- Process owl plugins for service commands
+
+</ul>
+In /usr/local/nagios/etc/nagios.cfg set service_perfdata_command as follows:
+
+Note: that we assume that other settings for process_performance_data, service_perfdata_file, service_perfdata_file_template, service_perfdata_file_mode, service_perfdata_file_processing_interval, and service_perfdata_file_processing_command are already configured as part of the installation for nagiosgraph.
+
+Note also that the setting for service_perfdata_file_processing_command must be commented out if service_perfdata_command is defined above.
+
+<h4>Step 7: Create a user account for the sensor</h4>
+
+Step 7: Create a user account for the sensor.
+ #useradd -m sensor
+<h3>Adding new sensor (sensor-1)</h3>
+
+<h4>Step 1: Set up the owl-user account on the sensor machine</h4>
+
+Adding new sensor (sensor-1).
+Step 1: Set up the owl-user account on the sensor machine.
+ # useradd -m owl-user
+
+<h4>Step 2: Copy owl sensor data to the user account on the sensor machine</h4>
+
+Step 2: Copy owl sensor data to the user account on the sensor machine.
+ [owl-user]$ cd
+
+<h4>Step 3: Create an owl sensor config file for sensor-1 on the sensor machine</h4>
+
+<ul>
+Step 3: Create an owl sensor config file for sensor-1 on the sensor machine.
+- Modify ~/conf/owl.conf as follows
+
+</ul>
+
+<h4>Setp 4: Initialize the sensor on the manager machine</h4>
+
+Setp 4: Initialize the sensor on the manager machine.
+Note: This is on the manager machine:
+
+<ul>
+- Create the sensor directories on the manager machine
+
+</ul>
+
+<ul>
+- Create a new sensor config file
+
+</ul>
+
+<ul>
+- Create the nagios objects for the sensor
+
+</ul>
+In /usr/local/nagios/etc/nagios.cfg add the following line just before the config line for owl-hostgroups.cfg:
+
+<ul>
+- Add the sensor to the hostgroup
+
+</ul>
+In /usr/local/nagios/etc/objects/owl-hostgroups.cfg add the following line:
+
+<h4>Step 5: Add the sensor sshkey to the manager</h4>
+
+Step 5: Add the sensor sshkey to the manager.
+Note: This is on the manager machine:
+
+Add the following line to ~sensor/.ssh/authorized_keys to allow sensor-1 to rsync data to the manager machine:
+
+<h4>Step 6: Start the sensor</h4>
+
+Step 6: Start the sensor.
+Note: This is on the sensor machine
+
+Verify that the sensor is able to rsync the data to the manager ( check /var/opt/owl/data/sensor-1/data on the manager).
+
+</doc>

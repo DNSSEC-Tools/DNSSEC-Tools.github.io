@@ -1,0 +1,28 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Lftp
+---
+<h1>Lftp</h1>
+The patch for DNSSEC-Tools support was included in Version 4.0.4 of lftp, released on 2009-11-19.
+
+Last tested: lftp 4.3.8 and dnssec-tools 1.12, in September of 2011.
+
+<h2>Enabling DNSSEC-Tools</h2>
+
+Enabling DNSSEC-Tools.
+ ./configure --with-dnssec-local-validation
+
+<h2>Telling ltfp to use DNSSEC validation</h2>
+
+Telling ltfp to use DNSSEC validation.
+ $ echo "set dns:dnssec-strict 1" » ~/.lftprc
+
+<h2>Verifying DNSSEC validation</h2>
+
+Verifying DNSSEC validation.
+You can use the DNSSEC-Tools test zone to ensure that a domain which fails validation is not successful:
+
+You can enable debug logging for the nitty-gritty details:
+
+
+</doc>

@@ -1,0 +1,87 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Release Instructions
+---
+<h1>Release Instructions</h1>
+<h2>Release Steps</h2>
+
+<h3>check that validator make test works</h3>
+
+Release Steps.
+check that validator make test works.
+ make -C validator test
+
+<h3>version stamp everything with the release number</h3>
+
+version stamp everything with the release number.
+This needs to be done in a better automatted can't miss something way
+
+Last time I did:
+
+Ugly.
+
+One thing done in the past:
+
+Other files that need updating:
+
+<ul>
+- configure.in
+- configure (run autoconf to generate after editing configure.in)
+
+</ul>
+<h3>Generate the ChangeLog</h3>
+Generate the ChangeLog.
+ svn log > ChangeLog
+
+<h3>Update the README/NEWS/ETC files</h3>
+
+<ul>
+Update the README/NEWS/ETC files.
+- any needed changes
+
+</ul>
+<h3>Check copyrights</h3>
+
+Check copyrights.
+Any files that have changed since the last release probably need new copyright end dates if a year recently passed.
+
+<h3>Update the spec file</h3>
+
+<h3>Test!!!</h3>
+
+Test!!!
+At least this should be tested on solaris, because it's used by some of our customers and the development is mostly done on linux. SPARTA netsec's deepthot machine is a solaris box.
+
+<h3>Tag the release</h3>
+
+Tag the release.
+ svn copy -m "tag of 1.0" \
+
+<h3>Export it to a directory and tar</h3>
+
+Export it to a directory and tar.
+NOTE: You must use star not tar (gtar or sun) to create the archive so it works everywhere
+
+<h2>Package binaries</h2>
+
+<h3>RPMs:</h3>
+
+Package binaries.
+RPMs:.
+ sudo cp dist/dnssec-tools.spec /usr/src/redhat/SPECS/
+
+<h2>Upload to SF server</h2>
+Upload to SF server.
+something like:
+
+<h3>and publish</h3>
+
+<h2>Announcements</h2>
+
+<ul>
+Announcements.
+- <a href="http://sourceforge.net/news/submit.php?group_id=121671">SourceForge project news</a>
+- -users list
+- <a href="http://www.freshmeat.net/projects/dnssec-tools/">freshmeat</a>
+
+</doc>

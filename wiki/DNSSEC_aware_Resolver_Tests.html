@@ -1,0 +1,39 @@
+---
+layout: default
+title:  DNSSEC-Tools -- DNSSEC-aware Resolver Tests
+---
+<h1>DNSSEC-aware Resolver Tests</h1>
+This page is acting as a collaboration point where tests can be defined that study a recursive resolver's behaviour for its ability to act as a caching resolver for DNSSEC validation libraries, applications and servers. Some of the tests today are being conducted by <a href="DNSSEC_Check.html">DNSSEC-Check</a>, <a href="https://github.com/ogud/DNSSEC-resolver-check">DNSSEC-resolver-check</a> and others. Some validation libraries, such as <a href="libval.html">libval</a>, also use the results of similar tests in order to gauge whether they can forward queries through a particular resolver. This page is an attempt to collect a common set of criteria to meet the goals listed below.
+
+<h2>Goals</h2>
+
+<ol>
+Goals.
+1. Generate a list of attributes that a DNSSEC-aware recursive resolver must support to enable DNSSEC-validating applications (& more) to use them as a recursion and/or caching resource
+2. Generate a list of tests that can be conducted to evaluate each of these attributes
+3. Generate a list of aggregated "minimal" tests that can be used as a set of minimal queries for validating applications to issue in order to come to a quick conclusion about a given resolver.
+4. Enable studies to track these attributes over time to gauge the success of DNSSEC deployment as seen by end-user applications (& more).
+
+</ol>
+<h2>Attributes</h2>
+
+Attributes.
+This list is formatted so that the words in bold represent a "name" for the test that may be used in later sections. After the definition is a list of queries that can be used, with pass/fail/etc criteria for determining if that attirbute is applicable to the resolver in question. Unless stated otherwise, all tests will be assumed to be conducted over UDP only.
+
+<ol>
+1. UDP: Must be able to answer RFC1034/5 UDP queries by doing standard DNS resolution
+<ul>
+- Basic A record Query
+<ul>
+-  Query for a an address that is known to have a valid A record, such as www.dnssec-tools.org, (?? is result is compared to known value ???)
+-  PASS: If a response is received containing an A record in the answer section for www.dnssec-tools.org
+-  FAIL: Otherwise
+</ul>
+</ul>
+2. UDP-All-Types: Must be able to answer a UDP query with no special options for basic DNS types (eg, SOA)
+3. TCP: Must be able to answer minimal TCP queries with no special options
+
+</ol>
+<h2>Aggregated Tests</h2>
+
+</doc>

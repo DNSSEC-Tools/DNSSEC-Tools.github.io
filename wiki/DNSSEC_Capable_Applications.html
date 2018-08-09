@@ -1,0 +1,119 @@
+---
+layout: default
+title:  DNSSEC-Tools -- DNSSEC Capable Applications
+---
+<h1>DNSSEC Capable Applications</h1>
+<h2>Firefox</h2>
+
+Firefox.
+A patched Firefox RPM is available as well as
+the patch itself. A patched Firefox will notify the user of DNSSEC
+validation failures.
+
+<ul>
+- <a href="http://en.www.mozilla.com/en/firefox/">firefox website</a>
+- <a href="_Software_Summary.html">Jump to DNSSEC-Tools Software Summary</a>
+<h2>Sendmail</h2>
+
+Sendmail.
+With the DNSSEC-Tools <a href="sendmail.html">sendmail</a> patch applied it will perform DNSSEC validating DNS queries
+when determining where to send mail. The mail will bounce back to
+the sender when an attempt is made to send mail to sites that do not pass DNSSEC validation.
+
+Once the patch is applied to a local sendmail installation, the only
+other configuration necessary (other than libval's dnsval.conf) is
+to add the 'RequireDNSSEC' option to ResolverOptions in sendmail's
+configuration.
+
+<ul>
+- <a href="http://www.sendmail.org/">sendmail website</a>
+- <a href="_Software_Summary.html">Jump to DNSSEC-Tools Software Summary</a>
+<h2>Postfix</h2>
+
+Postfix.
+Similar to the sendmail patch, once patched, postfix will perform
+DNSSEC validating DNS queries when determining where to send mail.
+The mail will bounce back to the sender when sent to sites that do
+not pass DNSSEC validation.
+
+Currently the postfix patch does not provide for configuring DNSSEC
+validation off and on. Once patched, it will always run DNSSEC
+checks (as configured in libval's dnsval.conf).
+
+Bounced mail will look similar to the following:
+
+<ul>
+- <a href="http://www.postfix.org/">postfix website</a>
+- <a href="_Software_Summary.html">Jump to DNSSEC-Tools Software Summary</a>
+
+</ul>
+<h2>LibSPF</h2>
+
+LibSPF.
+This patch adds DNSSEC validation to DNS queries in libspf2. There
+are patches for libspf2 versions 1.0.4 and 1.2.5.. Recompiling with
+this patch allows applications using libspf2 to also check for
+DNSSEC validation.
+
+<ul>
+- <a href="http://www.libspf2.org/">libspf2 website</a>
+- <a href="_Software_Summary.html">Jump to DNSSEC-Tools Software Summary</a>
+
+</ul>
+<h2>Thunderbird</h2>
+
+Thunderbird.
+This patch adds DNSSEC validation to the Thunderbird mail client.
+It requires getting, patching and building the Thunderbird source
+code. It has been tested with version 1.5.0.10 and should be
+considered beta.
+
+<ul>
+- <a href="http://en.www.mozilla.com/en/thunderbird/">thunderbird website</a>
+- <a href="_Software_Summary.html">Jump to DNSSEC-Tools Software Summary</a>
+
+</ul>
+<h2>OpenSSH</h2>
+
+<h2>lftp</h2>
+lftp.
+The lftp maintainer integrated our patch to provide local DNSSEC validation in lftp Version 4.0.4.
+
+<ul>
+- <a href="http://lftp.yar.ru/">lftp website</a>
+- <a href="_Software_Summary.html">Jump to DNSSEC-Tools Software Summary</a>
+
+</ul>
+<h2>ncftp</h2>
+
+ncftp.
+The ncftp maintainer incorporated our patch for local DNSSEC validation
+in release 3.2.4d.
+
+<ul>
+- <a href="http://www.ncftp.com/">ncftp website</a>
+- <a href="_Software_Summary.html">Jump to DNSSEC-Tools Software Summary</a>
+
+</ul>
+<h2>proftpd</h2>
+
+proftpd.
+This patch adds DNSSEC validation using libval to proftpd. It has
+been tested against versions 1.3.0a and 1.3.1rc2 of proftpd. Using
+it requires patching and building a local version of proftpd.
+
+<ul>
+- <a href="http://www.proftpd.org/">proftpd website</a>
+- <a href="_Software_Summary.html">Jump to DNSSEC-Tools Software Summary</a>
+
+</ul>
+<h2>jabberd</h2>
+
+jabberd.
+This patch adds DNSSEC validation using libval to jabberd.
+
+<ul>
+- <a href="http://jabberd2.xiaoka.com/">jabberd2 website</a>
+- <a href="_Software_Summary.html">Jump to DNSSEC-Tools Software Summary</a>
+
+</doc>

@@ -1,0 +1,92 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Current resolver requirements
+---
+<h1>Current resolver requirements</h1>
+These are the current requirements a resolver must support to be used with the DNSSEC validation library distributed with DNSSEC-Tools (libval). These requirements may change slightly as the interface between the libval library and an underlying resolver library is cleaned up as it is ported to work with other resolver libraries.
+
+<h2>Current requirements</h2>
+
+<h3>API requirements</h3>
+
+<ol>
+Current requirements.
+API requirements.
+1. Ability to send a query for a given name/type/class to a particular name server
+<ul>
+- ability to set retries/timeouts for a query
+</ul>
+2. Ability to have multiple outstanding requests for the same thread of execution
+<ul>
+- i.e. asynchronous query and response and polling for answer.
+</ul>
+3. Ability to differentiate between DNS errors and missing type/name conditions.
+4. Ability to detect/return the following types of errors:
+<ul>
+- internal errors
+- DNS header-related errors
+- response header errors
+- EDNS0 version error
+- unsupported EDNS0 version label
+</ul>
+5. Ability to return multiple RRs for a query
+6. Ability to know which section a RR is from (ans, auth, addl)
+7. Ability to get raw packet response
+8. Support for following functionality via API functions
+<ul>
+- name packing and unpacking: ns_name_pack and ns_name_unpack
+- on-the-wire to ascii (and vice-versa) conversion: ns_name_ntop, ns_name_pton
+- ability to parse the TTL : ns_parse_ttl
+- conversion from class string representation to u_int16_t (and vice-versa): res_nametoclass, p_class
+- conversion from type string representation to u_int16_t (and vice-versa): res_nametotype, p_type
+
+</ul>
+</ol>
+<h4>API Extras that are nice to have</h4>
+<ol>
+API Extras that are nice to have.
+1. Ability to specify a set of nameservers for a query
+<ul>
+- Ability to know which one provided the response
+- Ability to specify the order the servers will be tried (eg round-robin, in-order)
+
+</ul>
+</ol>
+<h3>Data type requirements</h3>
+
+<ol>
+Data type requirements.
+1. Ability to understand all DNSSEC rr types
+<ul>
+- including nsec3 if nsec3 support is enabled
+</ul>
+2. Support explict query of DNSKEY, RRSIG, SOA, glue (only A currently but AAAA needed too) and DS RR types
+
+</ol>
+<h3>Protocol Configuration Requirements</h3>
+
+<ol>
+Protocol Configuration Requirements.
+1. For any query ability to selectively turn on RD (recursion desired)
+2. For any query ability to selectively enable DNSSEC (D0).
+3. For any query ability to selectively turn on CD
+<ul>
+- CD is automatically enabled when D0 is set
+- but we want to control this if we want the ability for end resolvers to trust validation results from intermediate caching (validating) recusive resolvers.
+</ul>
+4. Ability to control EDNS0 size
+<ul>
+- EDNS0 size is always set to 4096, but we may want the ability to control this value.
+
+</ul>
+</ol>
+<h2>Future requirements</h2>
+
+Future requirements.
+These requirements are potential future ideas and not requirements today and are not used today:
+
+<ol>
+1. TSIG support for queries
+2. ability to detect if there were multiple reponses for the same request
+
+</doc>

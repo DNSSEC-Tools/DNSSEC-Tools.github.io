@@ -1,0 +1,119 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Installing DNSSEC-Tools
+---
+<h1>Installing DNSSEC-Tools</h1>
+DNSSEC-Tools contains a large number of components. Some of those components depend on other software. These pages will help you install everything you need to get DNSSEC-Tools working on your system.
+
+<h2>Downloading the package</h2>
+
+Downloading the package.
+Download the most recent version of the complete tool-suite or individual components (libval, dnssec-check, etc) from:
+http://www.dnssec-tools.org/download/
+
+<h2>Operating Systems</h2>
+
+Operating Systems.
+DNSSEC-Tools is fairly portable and works on multiple systems. Pick from the following choices to describe how to install it on your platform of choice.
+
+<h2>Configure Options</h2>
+
+Configure Options.
+A number of configure flags are available for the dnssec-tools package. These are summarized below:
+
+<ul>
+- For most deployments of dnssec-deployment you _do not_ need to build and install the validator module. This includes most authoritative name server deployment scenarios that mostly require tools such as zonesigner, donuts and mapper. You can disable the validator configuration by simply using the --without-validator flag in configure.
+- However, you _do_ need to build the validator (and supporting) modules if you need trustman (the trust anchor management tool) or any one of our DNSSEC-capable applications.
+- Some configure flags that are visible in the top level of the dnssec-tools package are only specific to the validator module. These are --without-nsec3, --without-dlv, --without-ipv6. There's no need for you to specify these flags if you don't need the validator module. Specifically, zonesigner, donuts etc will still understand nsec3 zones if --without-nsec3 is passed as a flag to configure.
+- The validator module honors the --prefix option in that it will install libraries and binaries in the expected locations and looks for configuration files in the correct $prefix/dnssec-tools/etc directory; except for the root.hints file, which the validator will try to locate in various standard system directories. The validator module also allows the user to override the default locations for these configuration files during the ./configure process. However, in no case will 'make install' actually install any configure files in the directory specified. The user must install these files manually.
+- The validator module supports hard-coded default policies for its validator policy, its root hints data and for its resolver policy. These can be specified through the --with-inline-dnsval-conf, --with-inline-root-hints and --with-inline-resolv-conf configure options respectively.
+- The location for the operator-specified configuration files can be set using the --with-resolv-conf, --with-root-hints and --with-dnsval-conf options.
+- On certain platforms (e.g. OpenBSD) the inline validator config does not work, as a consequence of which configure will fail. On such platforms you would need to specify --without-inline-confs to disable the inline configuration feature within dnsval.
+<h3>Notes on the configure script behavior</h3>
+
+Notes on the configure script behavior.
+Some of the configure flags may be confusing or even give some surprising results. This section clarifies some of the configure script behavior. 
+
+First, a couple of reasons why configure flags are a little complex; 
+<ul>
+- The DNSSEC-Tools package is a suite of tools, so some of the configure options that appear at the top-level of the package are really only specific to a particular tool within the suite. There is also some desire to keep various tools within the dnssec-tools package self-contained, so that it's somewhat possible to build and use only tools that are necessary for doing the job.
+- The tool suite is a combination of Perl modules, perl scripts, C libraries and binaries build against these C libraries. Perl has its own notion of where in the directory structure it must place modules, documentation and scripts by default, while the C libraries and binaries (that don't rely on Perl) are configured to use /usr/local by default.
+- The Perl location is not always standard. For instance, on an OSX system using macports, the perl path is typically /opt/local/bin/perl. Consequently, modules, documentation and scripts are all located somewhere under /opt/local/ _by default_, which is quite different than other *nix* based systems that would typically install these components under /usr/.
+- Installing Perl modules in non-standard locations, while can be made to work, is often described as kludgy. This is because it is difficult to modify the tools in flight during install to make them look at the non-standard locations for modules.
+
+</ul>
+Now, keeping in mind the above, here's what configure actually does: 
+<ul>
+- You can't say for sure where different pieces are installed after you have executed the "./configure; make; make install;" sequence, since some of this will depend on which perl instance was detected in your PATH.
+- You will need root permissions in order to install all the perl-related components on the system. This is even if you've given a --prefix option that should not have needed any special privileges.
+- While --prefix flag does the "right" thing for C libraries and binaries built using it, the flag does not control where any of the perl scripts are installed.
+- The dnssec-tools.conf file and the dnssec-tools.1 man page are installed in $prefix/etc/dnssec-tools/ and $prefix/share/man/man1/ directories respectively. This is actually non-intuitive given that these files are installed as part of the 'perlinstall' dependency in the makefile, yet it is inconsistent with other perl-related install directories
+
+</ul>
+Here's what configure should do in the future:
+<ul>
+- Implement current behavior by default (when no flags are passed to configure)
+- When --prefix is passed as an option, force perl to use a different install path and implement kludgy behavior described above
+- There isn't an "old behaviour" switch, but probably should be. --enable-perl-self-install?
+<h2>Self Tests</h2>
+
+Self Tests.
+The DNSSEC-Tools package supports a number of self-tests for various modules. These are summarized below:
+
+<h3>Test Harness</h3>
+
+Test Harness.
+The testing/ directory contains a number of tests for the DNSSEC-Tools utilities.
+These tests are run by the make command, passing the targets listed
+below. Both verbose and (relatively) quiet tests are available.
+
+The following utilities are tested: zonesigner, donuts, donutsd, trustman,
+and rollerd. There are also tests for trustman/rollerd interaction.
+
+Running the Tests
+<ul>
+- Typing "make" will run the complete suite of tests.
+- In order to run a subset of tests, run "make" with test appropriate target. For example, "make rollerd" will run the rollerd tests.
+- Given the large volume of extra output provided by the verbose tests, it is probably better to start with the quiet tests and only use the verbose tests if a problem was found. For example, run "make donuts" to run the donuts tests; follow that with "make donutsv" if any of the tests have problems.
+
+</ul>
+Test Targets
+
+The available test targets are:
+<ul>
+- all Run all tests in quiet mode. (default)
+- verbose Run all tests in verbose mode.
+- zonesigner Run zonesigner tests quietly.
+- zonesignerv Run verbose zonesigner tests.
+- donuts Run donuts tests quietly.
+- donutsv Run verbose donuts tests.
+- donutsd Run donutsd tests quietly.
+- donutsdv Run verbose donutsd tests.
+- trustman Run trustman tests quietly.
+- trustmanv Run verbose trustman tests.
+- rollerd Run rollerd tests quietly.
+- rollerdv Run verbose rollerd tests.
+- trustman-rollerd Run trustman/rollerd interaction tests quietly.
+- trustman-rollerdv Run verbose trustman/rollerd interaction tests.
+- clean Clean up all test files.
+<h3>Perl module tests</h3>
+
+Perl module tests.
+Tests in this category can be executed by running 'make test' in the tools/ directory.
+
+The following modules and tools are checked:
+<ul>
+- convertar
+- Net::DNS::Sec::Validator
+- Net::addrinfo (currently fails a number of tests, but this is okay?)
+- ZoneFile::Fast
+
+</ul>
+<h3>Validator Module</h3>
+
+Validator Module.
+Tests in this category can be executed by running 'make test' in the validator/ directory.
+A number of tests are run, testing for various capabilities in the validator. Thus it is necessary for the validator to be compiled with support for the different features. Currently this implies that the following arguments be passed to configure:
+
+
+</doc>

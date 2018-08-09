@@ -1,0 +1,86 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Sign Your Zone
+---
+<h1>Sign Your Zone</h1>
+So you've read all about the <a href="http://www.kb.cert.org/vuls/id/800113">DNS Vulnerability</a> and you want to sign your zone. You've come to the right place!
+
+= Sign Your Zone! =
+
+The <a href="DNSSEC_Tools.html">DNSSEC-Tools</a> package makes it easy to sign you zone quickly with as little hassle as possible. This describes the steps you need to go through, many of which you're already doing.
+
+<h3>Don't like words? Watch the video!</h3>
+
+Don't like words? Watch the video!
+If you'd rather watch a video, please see the <a href="http://www.youtube.com/watch?v=7ksgTFxAg6U">Getting Started with DNSSEC</a> video.
+
+<h2>Power User Quick Start</h2>
+
+Power User Quick Start.
+If you just want to get going without much help:
+
+<ul>
+- <a href="Installing_DNSSEC_Tools.html">Install Everything</a>
+<ul>
+- Make sure you run <a href="dtinitconf.html">dtinitconf</a> after installation to help you set up your <a href="dnssec_tools_conf.html">dnssec-tools.conf</a> configuration file.
+</ul>
+- First run: zonesigner -genkeys -zone example.com db.example.com
+- Future runs: zonesigner -zone example.com db.example.com
+
+</ul>
+<h2>Install DNSSEC-Tools</h2>
+
+Install DNSSEC-Tools.
+Start by <a href="Installing_DNSSEC_Tools.html">installing the DNSSEC-Tools package</a>. This page should help you get it installed on your system.
+
+After installation, make sure you run <a href="dtinitconf.html">dtinitconf</a> after installation to help you set up your <a href="dnssec_tools_conf.html">dnssec-tools.conf</a> configuration file.
+
+<h2>Start with your zone file</h2>
+
+Start with your zone file.
+You'll need your zone file for your domain. Whether it's edited by hand or generated, it'll be the starting point. For our example purposes, we'll use the following very simple zone:
+
+Place this zonefile in a directory that you don't mind some other related files being placed with it. In the process of signing your zone, we'll need to generate some keys for you as well as store some other signing-related state-data.
+
+<h2>Sign it the first time</h2>
+
+Sign it the first time.
+We'll now use <a href="zonesigner.html">zonesigner</a> to sign the zone file. Zonesigner does make use of the <a href="bind.html">bind</a> tools, so you'll need the bind software installed as well as <a href="perl.html">perl</a>.
+
+The first time, we'll need to add the -genkeys option to instruct zonesigner that we wish to generate new keys for the zone (since you don't have any yet). Simply run zonesigner as follows (the bold is the command that was run, and everything else is the output):
+
+We now have a new file in the same directory called example.com.signed. Take a look at it if you like.
+
+Note the time we highlighted in RED that shows when your new signatures expire. In other words: 
+
+This is the single biggest changed to running a zone with DNSSEC support, so I'll say it again in a different way:
+
+<h2>Resigning your zone</h2>
+
+Resigning your zone.
+Every time you change the contents of your zone (you can continue using the original zone file, like our example.com file in this example). Even if you don't change you data, as mentioned above, you should resign your zone once a month.
+
+But, let's say we added a new www2 record to the example.com file:
+
+Then we simply run <a href="zonesigner.html">zonesigner</a> again, but this time without the -genkeys option.
+
+That's it! Not much more to it! See below for other information, but you now know enough to get started. There are other very good DNSSEC kits to use but it doesn't get much simpler than this!
+
+= Further reading =
+
+<h2>Other Options</h2>
+
+Other Options.
+<a href="zonesigner.html">zonesigner</a> has a lot of options and you may wish to use some of them. One worth mentioning here is the -zone option, which can be used if your file name doesn't match your zone name. For example, if your file name was db.example.com then you'd need to add the -zone flag to indicate the zone name:
+
+<h2>Other Resources</h2>
+
+Other Resources.
+The DNSSEC-Tools package has a number of other tools that will help zone administrators both with DNSSEC and with DNS in general.
+
+<ul>
+- The <a href="Authoritative_Zone_Administrator.html">Authoritative Zone Administrator</a> tutorial describes some of these other tools and how to use them.
+- The <a href="zonesigner.html">zonesigner</a> page provides more details on the zonesigner tool itself.
+- The <a href="Recursive_Server.html">Recursive Server</a> page describes how to configure your recursive server to start using DNSSEC in a recursive resolver in order to check the responses from other zones.
+
+</doc>

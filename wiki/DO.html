@@ -1,0 +1,19 @@
+---
+layout: default
+title:  DNSSEC-Tools -- DO
+---
+<h1>DO</h1>
+The DO bit is a DNS Protocol bit that can be turned on to indicate the DNS client wishes to receive DNSSEC data in return.
+
+<h2>Without the DO bit</h2>
+
+Without the DO bit.
+ # dig +dnssec www.dnssce-tools.org a
+
+<h2>With the DO bit</h2>
+
+With the DO bit.
+Running dig with the +dnssec flag will turn on the DO bit in the DNS protocol. Note that it now returns <a href="RRSIG.html">RRSIG</a> records as well:
+
+
+</doc>

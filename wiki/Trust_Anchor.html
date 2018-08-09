@@ -1,0 +1,21 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Trust Anchor
+---
+<h1>Trust Anchor</h1>
+A trust anchor is a <a href="DNSKEY.html">DNSKEY</a> (usually a <a href="KSK.html">KSK</a>) that is placed into a <a href="validating_resolver.html">validating resolver</a> so that the validator can cryptographically validate the results for a given request back to a known public key (the trust anchor).
+
+<h2>A Validation Example</h2>
+
+A Validation Example.
+For example, consider trying to validate "www.dnssec-tools.org". If you request the <a href="A.html">A</a> record for www.dnssec-tools.org when you've also specified you wish DNSSEC information returned with the results using the <a href="DO.html">DO</a> bit (this is done with the +dnssec flag to dig) you'd get the following answer:
+
+Wow. That's a lot of information. Especially since all you wanted was what is colored in blue. The really long digital signature strings, though, can be used to ensure that the information you wanted (in blue) was in fact the correct data. But to do this, the keys used to sign the data are needed so that you can check the signatures using those keys. So, we'd actually need to do another query to get the key used to sign the data! Off we go again and try to collect the <a href="DNSKEY.html">DNSKEY</a> from the domain used to sign the data. This would normally be contained in the "dnssec-tools.org" domain so we'll intelligently start there:
+
+You'll notice that there are more than one DNSKEY returned with that above data set. In particular, only one of those keys signed the data we're interested in. We can find it by doing some analysis (not shown here) on each key to calculate it's key identifier. This should match the number in green from the first query and thus indicates which key we should use to cryptographically verify the signature on the A record we originally asked for.
+
+If that key works and the signature on the A record is valid, then we need to figure out what key made the signature on the DNSKEY we just used. We'd keep doing this process (getting a new key, validating it's signature) until we finally got back to a trust anchor (which is why we started this whole discussion). If the contents of the trust anchor and the contents of the requested <a href="DNSKEY.html">DNSKEY</a> match then we know that we've reached a spot where we trust the configured key. Probably because we've verified it's authenticity through some other method (a phone conversation, a newspaper article).
+
+Wheew. Aren't you glad you have tools and libraries to do this for you? All you need to do is properly find and insert the trust anchor once. Tools like <a href="donuts.html">donuts</a> help the zone administrators verify they have valid zone data, including DNSSEC signatures and keys that actually work. Libraries like <a href="libval.html">libval</a> help your appilcation do this automatically without the developer having to think about it. Tools like <a href="Trustman.html">Trustman</a> can even be used to monitor for key changes in a zone and automatically update your configured trust anchors!
+
+</doc>

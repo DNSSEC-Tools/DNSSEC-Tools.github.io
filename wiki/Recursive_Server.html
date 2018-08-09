@@ -1,0 +1,73 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Recursive Server
+---
+<h1>Recursive Server</h1>
+This is a brief description of the parts of DNSSEC-Tools an
+administrator for a <a href="DNSSEC_aware_recursive_name_server.html">DNSSEC aware recursive name server</a> could find
+useful. The server could operate on a small scale (a single machine or
+small network where DNSSEC validation of DNS queries is desired) or it
+could be an a large scale (an enterprise or ISP that wants to have
+a DNS server supporting DNSSEC look-ups). The DNS resolver will be configured
+with a list of zones that DNS results are checked for DNSSEC compliance (which could be every zone). It would do this by comparing the DNS answers and the digital <a href="RRSIG.html">signatures</a> that accompanied it. The validating resolver will continuing validating results up the DNS chain until it gets to an associated <a href="Trust_Anchor.html">Trust Anchor</a> (TA). Only after the answers have been properly validated will the server return the results to its client.
+
+<h2>Recursive Server Administrator</h2>
+
+Recursive Server Administrator.
+DNSSEC-Tools has several tools to help
+manage a validating recursive server. See <a href="http://www.dnssec-deployment.org">dnssec-deployment.org</a> and
+<a href="http://www.dnssec.net">dnssec.net</a>
+for information on obtaining recursive servers that support DNSSEC. Most DNS server software (and all the major ones)
+support DNSSEC. 
+Setting up a DNS server itself is out of scope of this
+document. The DNSSEC-Tools software components <a href="trustman.html">trustman</a> and the <a href="logwatch.html">logwatch</a>
+patch are most helpful with <a href="http://www.isc.org/products/BIND/">Bind</a>
+software in particular. The current version of logwatch has incorperated this patch and will scan
+for BIND/DNSSEC output from a Bind server. Trustman can manage Bind's <a href="named_conf.html">named.conf</a> file's <a href="Trust_Anchor.html">Trust Anchors</a> (TAs).
+
+<h2>Logwatch</h2>
+Logwatch.
+The <a href="logwatch.html">logwatch</a> update patch included within the DNSSEC-Tools release is now included in current versions of Logwatch so you shouldn't need it if you are running a recent version of <a href="http://www.logwatch.org/">logwatch</a>. It
+parses DNSSEC information out of 
+<a href="http://www.isc.org/products/BIND/">Bind's</a> output and adds it 
+to logwatch's output summary information.
+
+<h3>Getting started with logwatch</h3>
+
+<ul>
+Getting started with logwatch.
+- Obtain a version of logwatch that is at least version 7.1 or higher.
+- When using it, these types of summary messages should appear in your logwatch messages if you are running BIND as a validating resolver:
+
+</ul>
+<h2>Dnspktflow</h2>
+
+Dnspktflow.
+<a href="Dnspktflow.html">Dnspktflow</a> is a tool that parses a <a href="tcpdump.html">tcpdump</a> file and graphically
+displays the DNS and DNSSEC specific network traffic. It can be
+used to check DNSSEC traffic at a server in order to track down or
+check for errors.
+
+<h3>Getting Started With Dnspktflow</h3>
+
+<ul>
+Getting Started With Dnspktflow.
+- Given a tcpdump file called tcpdump.out with DNS traffic in it.
+
+</ul>
+<ul>
+- The command line arguments above add extra information to the picture (type, query, answers, authoritative and extra information), while reducing the data to DNS packets involving hosts with 'dnssec-tools' in their names. See the <a href="dnspktflow.html">dnspktflow</a> manual page for further details.
+
+</ul>
+<h2>General Error Checking Tools</h2>
+
+General Error Checking Tools.
+For more DNSSEC error checking and debugging tools, check out the DNSSEC error checking tools summary below.
+It includes general DNSSEC error checking tools as well as tools
+that error check for a specific type of use or user. Some of the
+tools may be useful to debugging validating DNSSEC servers.
+
+<h2>Software Summary</h2>
+
+
+</doc>

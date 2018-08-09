@@ -1,0 +1,50 @@
+---
+layout: default
+title:  DNSSEC-Tools -- DNSSEC Extras spec notes
+---
+<h1>DNSSEC Extras spec notes</h1>
+Notes on tweaking spec files for DNSSEC Extras
+
+<h2>prefix</h2>
+prefix.
+At the top of the spec file, add the following:
+
+Simply defining _prefix isn't enough, because apparently all the other variable have already been expanded, and will use the old prefix.
+
+<h3>exceptions</h3>
+exceptions.
+Some spec files purely use macros for configuring the app. Others also use macros during the build process, which can cause issues.
+
+<ul>
+- _includedir: this can affect the search path during builds
+- _tmppath: used to create temp files
+- _lib: this macro is special. It is lib for 32 bit machines, and lib64 for 64 bit machines. It is sometimes used in
+</ul>
+paths, such as /%{_lib}. Such instances will need to have the prefix added. e.g.
+
+<h2>name prefix</h2>
+name prefix.
+Change the name of the package to prefix it with 'dt-':
+
+This might break a few things, including:
+
+<h3>languages</h3>
+
+languages.
+ +%find_lang wget
+
+and
+
+<h2>patches</h2>
+patches.
+Add any patches. I usually bump the patch number to be well beyond existing numbers. If the package
+has patches 1-20, I use patch99:
+
+and
+
+<h2>configure</h2>
+configure.
+Update the configure line to include dnssec:
+
+
+</doc>

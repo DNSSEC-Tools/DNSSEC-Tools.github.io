@@ -1,0 +1,24 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Rollerd
+---
+<h1>Rollerd</h1>
+<h2>About</h2>
+
+About.
+rollerd is a daemon application that automates the process of resigning a zone on a regular basis and can automate the process of <a href="KSK.html">KSK</a> rollover using the safe and recommended practices. rollerd is designed to ensure <a href="Authoritative_Zone_Administrator.html">authoritative zone administrators</a> will not have to worry about properly performing the critical timing steps involved with updating a zone's <a href="KSK.html">KSK</a>s.
+
+The <a href="rollctl.html">rollctl</a> command can be used to communicate with a running rollerd daemon.
+
+<h2>Example of a rollerd Log File</h2>
+
+Example of a rollerd Log File.
+Below is a rollerd log file. This was created with a "phase" log level, which only shows the changes in phase. This log file shows a single KSK rollover and a single ZSK rollover.
+
+<h2>TODO / WishList</h2>
+
+<ul>
+TODO / WishList.
+- The ability to roll different keys using different parameters (eg, support rolling multiple keys independently where one key is using RSA-SHA1 and another is RSA-SHA256).
+
+</doc>

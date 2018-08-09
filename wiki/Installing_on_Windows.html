@@ -1,0 +1,41 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Installing on Windows
+---
+<h1>Installing on Windows</h1>
+Support for windows is not yet complete...
+
+<h2>Ignoring this advice and building the validator anyway...</h2>
+
+Ignoring this advice and building the validator anyway....
+The following assumes you want to also build the graphical tools, such as <a href="DNSSEC_Check.html">DNSSEC-Check</a>, <a href="DNSSEC_Nodes.html">DNSSEC-Nodes</a>, ...
+
+<ol>
+1. Install the <a href="http://qt.nokia.com/">QtSDK</a>
+2. Install the <a href="http://code.google.com/p/msysgit/downloads/list?q=full+installer+official+git">windows git tools</a>
+3. Get the DNSSEC-Tools source from a <a href="http://www.dnssec-tools.org/download/">tar or zip file</a> and extract it, or get a copy from <a href="git.html">git</a>
+4. Get and install a copy of <a href="http://slproweb.com/products/Win32OpenSSL.html">OpenSSL</a>
+<ul>
+- note: If you don't have the visuall C++ 2008 redistributables package installed yet, this is a good place to get that too.
+</ul>
+5. Get a copy of the <a href="http://www.openssl.org/source/">OpenSSL Source Code</a>.
+6. start a git shell and build the dnssec-tools/validator:
+<ol>
+1. PATH=/c/QtSDK/mingw/bin:/c/QtSDK/msys/1.0/bin/:$PATH
+2. export PATH
+3. cp /c/QtSDK/mingw/bin/mingw32-make.exe /c/QtSDK/mingw/bin/make.exe
+4. cd dnssec-tools/validator
+5. ./configure
+6. make
+<ul>
+-  Note: This may fail for the applications, but it will build the libraries
+</ol>
+</ul>
+7. build the graphical applications
+<ol>
+1. Launch QtCreator
+2. Open the APPLICATION.pro file to build in the dnssec-tools/validator/apps/APPLICATION directories.
+3. Tell QtCreator to build (and optionally run) it.
+4. If packaging the tools for a stand-alone run, you may need libraries from /c/QtSDK/Desktop/Qt/4.8.1/mingw/bin/ or similar
+
+</doc>

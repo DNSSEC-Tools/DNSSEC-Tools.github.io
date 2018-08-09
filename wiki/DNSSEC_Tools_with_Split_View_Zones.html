@@ -1,0 +1,58 @@
+---
+layout: default
+title:  DNSSEC-Tools -- DNSSEC-Tools with Split-View Zones
+---
+<h1>DNSSEC-Tools with Split-View Zones</h1>
+This is a brief introduction to using DNSSEC-Tools with split-view zones.
+
+=DNSSEC-Tools with Split-View Zones=
+
+The DNSSEC security extensions allow for integrity protection, whereby it is possible to make a determination of the verity of data returned from the Domain Name System in response to a query. Current operation of the Domain Name System allows for the creation of multiple views of data, where the answer returned in response to a query is dependent on the origin of the query. For example, an organization may wish its DNS server to provide different answers to queries originating on the organizations LAN than it provides to queries coming from the outside world.
+
+The DNSSEC-Tools software assists in managing the cryptographic keys used by DNSSEC. In a split-view environment, it is most likely that different keys should be used in responding to queries from the server's different query sources. DNSSEC-Tools can easily manage cryptographic keys for zones in a split-view environment. This page provides suggestions for configuring DNSSEC-Tools for use in a DNS split-view environment.
+
+=Assumptions=
+
+For the purpose of this discussion, the following assumptions will be made:
+
+=DNSSEC-Tools Configuration=
+
+There are several pieces that must be configured for DNSSEC-Tools to manage a split-view DNS environment.
+
+<h2>Zone Files</h2>
+
+Zone Files.
+The zone files must be configured as needed for the views of the zone. This is beyond the scope of this page.
+
+<h2>Rollrec File</h2>
+
+Rollrec File.
+The rollrec file controls how the rollerd daemon performs rollover for the zones it manages. Each view must have its own rollrec record. These entries may be created by the rollinit or rollrec-editor commands, and they may be modified by the rollset command.
+
+The following requirements must be met by rollrec entries:
+
+This is absolutely critical. The BIND tools name their files based on the zone name. Since a zone's views have the same name for the zone, this will cause some of the files created by the BIND tools (e.g., the dsset and keyset files) to be given exactly the same name -- and these important files will be overwritten with data for other views.
+
+The encryption keys, created by dnssec-keygen, are named based on the zone. While zonesigner will have no trouble distinguishing between the keys for each zone's view, this can get confusing for the administrator. Keeping the keys segregated by view will help minimize this confusion.
+
+=Operation=
+
+After the zone files and the rollrec file are configured, the view directories must be prepared and an initial signing done of the zone files. After this, the zones are ready for use by rollerd.
+
+The views' directories must be prepared for use by rollerd. These directories are those listed in the directory fields in the rollrec file. The views' directories must be created, if they do not already exist. The views' zone files must then be copied into their directories.
+
+When the views' zone files have been moved into their respective directories, they must then be signed.
+
+For example, assume that there are two views, inside.example.com and example.com, for the example.com zone. If the zone files are stored in the example-in and example-out directories, a sequence of commands similar to the following must be executed:
+
+This will create the required files in the appropriate directories.
+
+The rollrec file should contain these (abbreviated) entries:
+
+rollerd may be started then and everything everything should proceed swimmingly.
+
+=Demo=
+
+The DNSSEC-Tools source tree has a demo that shows rollerd operating on a split-view zone. The demo is in .../tools/demos/rollerd-split-view. It uses zones similar to the examples given in Section 4. The README describes the demo, its files, and how to run the demo.
+
+</doc>

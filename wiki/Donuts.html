@@ -1,0 +1,50 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Donuts
+---
+<h1>Donuts</h1>
+<h2>About</h2>
+
+About.
+Donuts is a lint-like checking tool for analyzing DNS zone files. It reports any errors it finds, either as text output if run as a command line application or in a GUI window if a error browser interface is desired.
+
+It is extremely flexible and local rule sets and configuration can tailor its output to define local policies.
+
+donuts is discussed in <a href="http://www.youtube.com/watch?v=7ksgTFxAg6U">A demonstration video</a> about the DNSSEC-Tools components.
+
+<h2>Running Donuts: using the command line</h2>
+
+Running Donuts: using the command line.
+Using the command line is simple. There are, of course, a number of options to pick from as well but the default options will suit many people.
+
+The above loads the db.example.com file and examines it. It must be told which zone is contained within the file, which is why there is an additional argument of example.com on the command line.
+Use the --level 9 flag and argument for maximum output.
+
+<h3>Running donuts without the DNSSEC rules</h3>
+
+Running donuts without the DNSSEC rules.
+If you are not using DNSSEC in your zone, then donuts will produce a lot of warnings specific to DNSSEC because you have an unsigned zone. To use donuts without the DNSSEC specific rules, use the -i flag with DNSSEC as the argument:
+
+<h2>Running Donuts: using the GUI</h2>
+
+Running Donuts: using the GUI.
+The following images show the GUI option screens. If you run donuts without any arguments you'll get a series of screens walking you through the settings to run donuts.
+
+<h3>Main Options Screen</h3>
+
+<h3>Picking Zone Database Files</h3>
+
+<h3>Assigning Zone Names</h3>
+
+<h2>Error Browser</h2>
+
+Error Browser.
+The errors resulting from running donuts can be shown in a graphical browsing window if you select the --show-gui flag or use the graphical option interface and check the "Display the results in a browsable window" checkbutton.
+
+<h2>Writing your own Rules</h2>
+
+Writing your own Rules.
+The donuts <a href="http://www.dnssec-tools.org/docs/tool-description/Rule.html">rule syntax</a> allows you to write your own rules to use when processing your zone files. See the <a href="Writing_Donuts_Rules.html">Writing Donuts Rules</a> page for details.
+
+
+</doc>

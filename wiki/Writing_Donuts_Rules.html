@@ -1,0 +1,56 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Writing Donuts Rules
+---
+<h1>Writing Donuts Rules</h1>
+<a href="donuts.html">donuts</a> is an extensible system that allows operators to write your own rules in order to process their zone files that will examine zone records looking for conformance adherence to custom rules and conventions. You can read the <a href="http://www.dnssec-tools.org/docs/tool-description/Rule.html">Net::DNS::SEC::Tools::Donuts::Rule manual</a> for full details about the rule definition language. The following sections will provide a brief tutorial for writing your own rules:
+
+<h2>Writing a new rule</h2>
+
+Writing a new rule.
+There are two types of <a href="donuts.html">donuts</a> rules: one for processing each individual record and another for processing all the records associated with a given name.
+
+If we use an example zone file that looks like the following:
+
+Then the above has:
+
+<ul>
+- 5 names (example.com, ns1, ns2, www and ssh)
+- 10 records (1 SOA, 2 NS, 4 A and 3 MX).
+
+</ul>
+And if the above zone is signed, it will contain no errors or warnings that are reported by <a href="donuts.html">donuts</a> using the default rules and configuration.
+
+<h3>Writing Record Rules</h3>
+
+Writing Record Rules.
+record rules describe a rule that is run once on each record in a zonefile.
+record rules are also the default type (if you do not include a ruletype: line in the rule definition, it will assume it is a record rule).
+
+Defined rules can use the $record, $rule and $current_domain variables while processing.
+
+The type: clause can be used to limit which record types are matched (E.G., a line of type: A will only analyze DNS A records with this rule.
+
+<h4>Example: checking address ranges</h4>
+
+Example: checking address ranges.
+Let's say you have a local policy that requires each A record in a zoneifle to contain an address within the 192.0.0.0/16 subnet. The following rule is an example rule that ensures your zone will support that requirement:
+
+Running donuts as follows will then display an error for the www record above, which violates this new rule:
+
+<h3>Writing Name Rules</h3>
+
+Writing Name Rules.
+name rules describe a rule that is run once on each name in a zonefile.
+
+Defined rules can use the $records, $rule, and $current_domain variables while processing.
+
+<h4>Example: requiring an MX record</h4>
+
+Example: requiring an MX record.
+If you have a local policy that requires all records containing an A record also contain a MX record, then the following rule will test a zone to check that policy:
+
+Then running donuts on the zone above using that rule will result in 2 errors:
+
+
+</doc>

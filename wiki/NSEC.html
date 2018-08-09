@@ -1,0 +1,17 @@
+---
+layout: default
+title:  DNSSEC-Tools -- NSEC
+---
+<h1>NSEC</h1>
+<h2>About NSEC records</h2>
+
+About NSEC records.
+NSEC records are designed to prove that no records exist between two different points. As an example, here's an NSEC record from the dnssec-tools.org domain:
+
+This record says that nothing exists between the dnssec-tools.org record and the cvs.dnssec-tools.org record exists. So if someone tries to convince you that b.dnssec-tools.org exists you can prove they're lying to you. You do need to check the <a href="RRSIG.html">RRSIG</a> signature to be sure but the important part is that it's possible to prove that someone can't insert fake records into a DNSSEC protected zone.
+
+The problem with <a href="NSEC.html">NSEC</a> records is that it lets people find out what records do exist and thus it's impossible to hide data in a zone (which isn't recommended but people do it anyway). For example, looking for b.example.com would show you that cvs.dnssec-tools.org exists. You can actually discover the entire contents of a zone by "walking" through all the NSEC records.
+
+<a href="NSEC3.html">NSEC3</a> records are the solution to this problem and only contain hash records of the published names instead and is supported in DNSSEC-Tools 1.5 and beyond.
+
+</doc>

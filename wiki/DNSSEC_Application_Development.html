@@ -1,0 +1,119 @@
+---
+layout: default
+title:  DNSSEC-Tools -- DNSSEC Application Development
+---
+<h1>DNSSEC Application Development</h1>
+This is a short introduction to dnssec-tools for those that want to
+write applications that support DNSSEC.
+<h2>libval</h2>
+
+libval.
+The base DNSSEC-Tools tool to use for development is the validation
+library, libval. In order to support DNS calls, libval provides a
+set of API's similar to the standard set of resolver API's.
+Although the function headers should be checked to make sure, the
+following are generally true for similar function calls in the
+standard library and in libval:
+
+<ul>
+- common API function calls have similar names except that libval calls have a val_ prefix.
+- usually two additional parameters are added:
+<ul>
+- val_status_t parameter used to store success/failure of validation
+- val_context_t parameter used to store context for validation (allowed to be 'null' which uses a default context)
+
+</ul>
+</ul>
+<h3>Example</h3>
+
+Example.
+Below is some pseudo code as an example of a simple conversion from
+using the standard 'res_query' call to using libval's
+'val_res_query'.
+
+Standard call:
+
+Using libval's call: [libval included during linking]
+
+If desired, more information about the validation status of a query
+can be pulled from libval. Using additional libval API's and data
+structures a program can delve into the validation chain to find
+exactly where and how a query failed validation. But often, the
+only information needed is whether or not the query can be trusted.
+
+<h3>Trust</h3>
+
+Trust.
+Libval's trust is configurable. The file <a href="dnsval_conf.html">dnsval.conf</a>, usually
+in /usr/local/etc/dnssec-tools/, holds the configuration information
+for validation. That is, it contains the list of trust anchors to
+use, the list of domains that require DNSSEC validation, and the
+list of domains that do not require DNSSEC validation. Domains in
+dnsval.conf that require validation are only considered
+trusted if the queries for those domain can be successfully
+validated. Domains in dnsval.conf that do not require validation
+are considered implicitly trusted. That is, standard DNS responses
+from those domains are trusted.
+
+<h2>libval_shim</h2>
+
+libval_shim.
+The libval_shim library is designed to be dynamically loaded by applications using the 'LD_PRELOAD' mechanism supported on linux and various other unix-like platforms. If used in this manner the functions exported by libval_shim are used ahead of the functions normally exported by system resolver libraries. 
+As long as the application uses one of the legacy resolver API calls [gethostbyname(), gethostbyaddr(), getaddrinfo(), getnameinfo(), res_query(), res_search(), getipnodebyname() and getipnodebyaddr()] libval_shim automatically interleaves DNSSEC processing for the given function call and only returns a result if DNSSEC processing succeeds.
+
+Users need to ensure that the libval_shim library is loaded prior to the target application's execution. A typical way of achieving this is to set the LD_PRELOAD variable within the environment of the the target application prior to execution.
+
+Since libval_shim internally makes use of libval, the mechanism for configuring trust and policy settings for libval_shim is almost identical to that of libval. The only difference is that since the applications that make use of libval_shim are expected to be DNSSEC-unaware, there is no way for the application itself to specify a validation policy to use. libval provides two ways for libval_shim to select a specific validation policy for a given application (see the man page for dnsval.conf for additional details). If neither of these options are enabled, libval_shim uses the default validator context for its validation policy.
+
+<ul>
+- env-policy
+</ul>
+If the env-policy global option is not disabled, libval looks at the VAL_CONTEXT_LABEL environmental variable in order to determine the validator policy label.
+
+<ul>
+- app-policy
+</ul>
+If the app-policy global option is not disabled, libval automatically looks for a policy in dnsval.conf with a label value constructed from the name of the application. For example, dnsval.conf may be defined with validator policies for the foo label. The foo application, when run, will use the policy defined
+against the foo label during its validation operation.
+
+<h2>Maketestzone</h2>
+
+Maketestzone.
+The maketestzone script generates a test dnssec zone that can be used to test DNSSEC validator behavior. In normal scenarios, the test zone at test.dnssec-tools.org, which was constructed using this script, may be used directly for testing validator behavior. In other cases where a specific set of tests needs to be run, a validator operator may choose to create a new test zone using the maketestzone script. The man page for this script outlines the different command line options and discusses how to extend the maketestzone tool with new output modifications.
+
+<h2>Perl Modules</h2>
+
+<h3>Net::DNS::Zonefile::Fast</h3>
+
+Perl Modules.
+Net::DNS::Zonefile::Fast.
+The Net::DNS::ZoneFile::Fast module provides an ability to parse zone
+files that BIND8 and BIND9 use, fast. Currently it provides a single
+function, parse(), which returns a reference to an array of traditional
+Net::DNS::RR objects, so that no new API has to be learned in order to
+manipulate zone records. A typical invocation is as follows:
+
+<h3>Net::DNS::SEC::Validator</h3>
+
+Net::DNS::SEC::Validator.
+This Perl module is designed to implement and export functionality provided by the validating DNS resolver library, libval(3). The functions
+are provided through an easy-to-use object oriented interface. The interface is designed for the higher level user, hiding some of the
+complexity of validating resolvers. Nevertheless, application interface behavior can be customized through configuration files provided by libval(3) and extensive error codes returned.
+
+A description of the API is provided in the Net:DNS::SEC::Validator man page. An example usage is provided below:
+
+<h3>Net::Addrinfo</h3>
+
+Net::Addrinfo.
+This Perl module is designed to implement and export functionality
+related to the POSIX getaddrinfo(3) system call. The Net::addrinfo data
+object is provided with field name accsessor functions, similarly named
+to the the C data structure definition in netdb.h. The getaddrinfo(3),
+gai_strerror(3) calls, and related constants are exported.
+
+Additional details are provided in the Net::addrinfo man page. An example usage is provided below:
+
+<h2>Software Summary</h2>
+
+
+</doc>

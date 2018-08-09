@@ -1,0 +1,63 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Optimize caching
+---
+<h1>Optimize caching</h1>
+<h2>Requirements</h2>
+
+<h3>Contexts</h3>
+
+<ol>
+Requirements.
+Contexts.
+1. Should different applications be able to share contexts?
+<ul>
+- If yes, then we need to limit damage that can be caused to context by a misbehaving app.
+- If no, then the config file will be read each time a context is created. Also, the validator cache will not be shared between contexts: each app will have its own validator cache.
+
+</ul>
+</ol>
+<h3>Validator (Assertion) caches</h3>
+
+<ol>
+Validator (Assertion) caches.
+1. Define new data structure
+2. Should time out just like resolver caches. Free all components of the answer
+3. Add API to clear cache
+4. Should be indexed by "flag" also. A flag with DONT_VALIDATE gives different results.
+5. Must be able to re-use validation status for synthesized positive and negative answers
+6. Add bad cache support
+<ul>
+- answer from bad cache only when query failed for a certain number of times.
+- bypass the cache for getting fresh values of rrsets
+- TTL must be assigned to some small value (since this cannot be trusted)
+- answers from this cache must not be returned if the DONT_VALIDATE flag was set.
+- add support for synthesizing negative responses (ANC)
+
+</ul>
+</ol>
+<h3>Resolver caches</h3>
+
+<ol>
+Resolver caches.
+1. Define new data structure
+2. Query id spoof protection
+3. Multiple threads issuing the same query should translate to a single request
+4. Add API to clear cache
+5. Add negative answer cache support.
+<ul>
+- indexed by name and class (since type may be missing)
+- organized by zone name, so that we get the proof from the correct zone
+- must include proofs of wildcard existence and non-existence
+- option to sythesize positive/negative answers
+
+</ul>
+</ol>
+<h3>Operation</h3>
+
+<ol>
+Operation.
+1. Support cache-only operation
+2. Support query-only (no cache) operation
+
+</doc>

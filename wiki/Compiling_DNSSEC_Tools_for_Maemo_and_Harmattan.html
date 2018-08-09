@@ -1,0 +1,50 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Compiling DNSSEC-Tools for Maemo and Harmattan
+---
+<h1>Compiling DNSSEC-Tools for Maemo and Harmattan</h1>
+<a href="Harmattan.html">Harmattan</a> and <a href="Maemo.html">Maemo</a> are very similar and thus these instructions should work for both of them. The DNSSEC-Tools download page should have recent builds for both OSes, ideally.
+
+They both require a scratchbox build interface to be installed.
+The one for <a href="Maemo.html">Maemo</a> only runs on <a href="Ubuntu.html">Ubuntu</a>, but the one for
+<a href="Harmattan.html">Harmattan</a> is more generic and is known to run on both ubuntu and
+<a href="Fedora.html">Fedora</a>.
+
+The both have a curious location for the default resolv.conf. The
+default one in /etc points to 127.0.0.1, as the device runs
+dnsmasq. But the real dhcp assigned resolvers are stored in:
+
+<ul>
+- /var/run/resolv.conf.wlan0: when connected to the wireless network
+- /var/run/resolv.conf.gprs: when connected to a cellular network
+
+</ul>
+Because of this, we have to patch libval to try one and then fallback
+to the other.
+
+<h2>Steps</h2>
+
+<h3>Patch validator-internal.h</h3>
+
+Steps.
+Patch validator-internal.h.
+Patch validator/include/validator-internal.h as follows:
+
+<h3>Patch validator-compat.h</h3>
+
+Patch validator-compat.h.
+ --- validator/include/validator/validator-compat.h
+
+<h3>Run Configure</h3>
+
+<ol>
+Run Configure.
+1. Run configure with the following flags:
+
+</ol>
+
+Note that the resolv.conf points to the wlan0 version, but the
+internal (patched) fallback will fallback to the gprs version if the
+wlan0 version doesn't exist
+
+</doc>

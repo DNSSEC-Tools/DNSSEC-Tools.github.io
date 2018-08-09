@@ -1,0 +1,78 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Command Line and Configuration File Loading Behaviour
+---
+<h1>Command Line and Configuration File Loading Behaviour</h1>
+Warning: this page describes behaviour that will only be completely available in DNSSEC-Tools version 1.6 or beyond.
+
+Many of the DNSSEC-Tools components have multiple interfaces for configuring the application and for helping users manipulate the tools.
+
+<h2>Sources of Application Input</h2>
+
+Sources of Application Input.
+The application will take input in the following order, with later entries in the list trumping the earlier ones:
+
+<ol>
+1. Application Default Values
+2. Configuration files
+<ol>
+1. <a href="dnssec_tools_conf.html">dnssec-tools.conf</a>
+2. application specific (e.g. <a href="KRF.html">krf</a>, <a href="rollerd.html">rollrec</a>, etc)
+</ol>
+3. Command Line Options
+
+</ol>
+<h2>Processing</h2>
+
+Processing.
+All tools should be able to take a --dtconf command line option which will override the default location of the dnssec-tools.conf file.
+
+<h2>Help Output</h2>
+
+Help Output.
+All tools should support -h and --help switches for displaying a command line option summary.
+
+<h2>GUI Support</h2>
+
+GUI Support.
+Some tools may provide a <a href="GUI.html">GUI</a> window for helping users run the program without command line options. The GUI support will:
+
+<ol>
+1. Be disabled by default
+2. Be launched when the --gui flag is given
+3. Be launched when config file has the gui flag enabled and no options are given
+<ul>
+- MUST respect being launched as "APPLICATION --dtconf my.conf" as a valid starting
+</ul>
+4. Be launched when the DT_GUI environmental variable is configured to true and no options are given
+5. Use default values in the GUI based on:
+<ol>
+1. Application default values
+2. Configuration file contents
+<ul>
+-  MUST support APPLICATION --dtconf my.conf and still launch a GUI
+</ul>
+3. Command Line Options given
+<ul>
+-  (requires that "APPLICATION --gui --other-args..." be used)
+
+</ul>
+</ol>
+</ol>
+<h2>Transition Issues</h2>
+
+Transition Issues.
+At this time, the default values presented in the GUI come only from application configuration.
+
+At this time, "APPLICATION --gui --other-arguments" launches the GUI without changing the default values in the GUI. It should be spitting out an error instead.
+
+At this time, the DT_GUI environment variable doesn't work.
+
+<h2>Implementation</h2>
+
+Implementation.
+The DTGetOptions function will implement all of the above, including:
+<ul>
+- Searching arguments for the --dtconf flag and reading at least the "gui" option from the pointed file to determine if a full user GUI should be launched.
+
+</doc>

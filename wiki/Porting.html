@@ -1,0 +1,46 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Porting
+---
+<h1>Porting</h1>
+This page contains some simple examples of porting applications to use libval for local validation of DNSSEC.
+
+For real-world examples, check out our ever-expanding list of <a href="https://www.dnssec-tools.org/svn/dnssec-tools/trunk/dnssec-tools/apps/"></a> patches for open-source applications on our SVN server].
+<h2>configure.in</h2>
+configure.in.
+If you use configure, the following snippet will check for headers and libraries needed by libval.
+
+Make sure to regenerate files afterwards:
+
+<h2>headers</h2>
+headers.
+Include the validator header in each file used (or a common system header):
+
+<h2>getaddrinfo</h2>
+getaddrinfo.
+Typicall usage of val_getaddrinfo looks like this:
+
+<h3>centralized getaddrinfo</h3>
+centralized getaddrinfo.
+To have all your code call a wrapper function is pretty easy too. First, update your header to conditionally define the wrapper function:
+
+Then add the wrapper function:
+Now, update all your code to use my_getaddrinfo and my_freeaddrinfo.
+
+<h2>getnameinfo</h2>
+
+<h2>res_query</h2>
+
+<h2>gethostbyname</h2>
+
+<h3>gethostbyname2</h3>
+<h2>gethostbyaddr</h2>
+
+<h3>gethostbyaddr_r</h3>
+
+<h2>getrrsetbyname</h2>
+
+getrrsetbyname.
+For an example of replacing getrrsetbyname, see the <a href="https://www.dnssec-tools.org/svn/dnssec-tools/trunk/dnssec-tools/apps/ssh/ssh-dnssec.pat">OpenSSH patch</a> in SVN.
+
+</doc>

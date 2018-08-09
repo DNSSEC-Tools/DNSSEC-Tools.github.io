@@ -1,0 +1,61 @@
+---
+layout: default
+title:  DNSSEC-Tools -- Owl Monitoring System -- IIP-local Setup
+---
+<h1>Owl Monitoring System -- IIP-local Setup</h1>
+Page Under Development
+
+<h2>About</h2>
+
+About.
+The Owl Monitoring System provides a means of tracking the response time of DNS queries. It uses a set of Owl sensor hosts that collect response-time data and an Owl manager host which manages the data.
+
+<h2>IIP Local Setup</h2>
+
+IIP Local Setup.
+The Owl Manager has been installed on piper.netsec.tislabs.com and is managing a small number of Owl sensors. If you have set up a sensor on one of your machines or VMs, you may add it to piper's collection of sensors.
+
+On piper, the Owl functionality has been split between two users:
+<ul>
+- owl-sensor: The Owl sensors use this user to transfer files to the manager.
+- owl-manager: The Owl manager software and Nagios run with this user.
+
+</ul>
+Everything that makes up the Owl environment -- data files, Nagios environment, etc. -- is in /owl. This is actually a symlink to /uem/owl.
+
+Here are the files and directories you'll probably need to know about.
+
+/owl/sbin/nagios-init is a useful script for starting, stopping, and restarting Nagios. This script came in an old version of Nagios, but it seems to have been dropped in recent versions. I've kept copying it forward as I've put new versions in place because it is very helpful.
+
+When running programs for Owl from the Nagios and Co. packages, you must use the versions in /owl. There are Owl-specific paths and users compiled in them; using the UEM or DNSSEC-Tools versions of Nagios for the Owl installation would not be a good thing. The one exception to this is rrdtool; there is one version running system-wide.
+
+The Owl manager's Nagios interface is available here: http://piper.netsec.tislabs.com/owl-nagios/
+
+<h2>Third-Party Software</h2>
+
+Third-Party Software.
+The following third-party software packages are used by the Owl manager:
+
+<ul>
+- Nagios is a general-purpose network monitoring tool. Nagios runs on a monitoring host and collects data from remote hosts (or even its local self) to be displayed. Nagios is essentially an event dispatcher and display manager. It schedules events to collect monitoring data, and then it displays those data. Using other utilities, Nagios also has the facility to generate time-based graphs from the data it stores.
+
+</ul>
+<ul>
+- nagiosgraph stores Owl sensor data in round-robin databases. It uses rrdtool to perform the actual database manipulation.
+
+</ul>
+<ul>
+- rrdtool manages round-robin databases, especially time-series data. This is used to store Owl sensor data for display in graphs.
+
+</ul>
+<ul>
+- drraw is a front-end for rrdtool. It is used by Owl's Nagios environment to build and display graphs of the Owl sensor data.
+
+</ul>
+<ul>
+- rrsync puts sensor data into a particular sensor's data directory. It restricts rsync to the sensor's data directory, and its use is set up on a per-sensor basis in ~owl-sensor/.ssh/authorized_keys.
+
+</ul>
+In addition, both the Owl manager and the Owl sensor use several third-party Perl modules.
+
+</doc>
