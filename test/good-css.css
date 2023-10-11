@@ -6,7 +6,8 @@
 */
 
 a#dnssecsecure {
-    background-image:url(http://www.dnssec-tools.org/test/thumbsup-223.png);
+    // background-image:url(http://www.dnssec-tools.org/test/thumbsup-223.png);
+    background-image:url(http://www.dnssec-tools.org/test/question.svg);
     width:  223px;
     height: 315px;
     display:block;
